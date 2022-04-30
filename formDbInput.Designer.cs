@@ -35,7 +35,7 @@ namespace MediaDB
             this.chkMovieSeen = new System.Windows.Forms.CheckBox();
             this.txtMovieLength = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtMovieRating = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMovieYear = new System.Windows.Forms.TextBox();
@@ -47,6 +47,9 @@ namespace MediaDB
             this.txtMovieTitle = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabGameInput = new System.Windows.Forms.TabPage();
+            this.listBoxAdded = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControlInput.SuspendLayout();
             this.tabMovieInput.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +70,7 @@ namespace MediaDB
             this.tabMovieInput.Controls.Add(this.chkMovieSeen);
             this.tabMovieInput.Controls.Add(this.txtMovieLength);
             this.tabMovieInput.Controls.Add(this.label3);
-            this.tabMovieInput.Controls.Add(this.textBox1);
+            this.tabMovieInput.Controls.Add(this.txtMovieRating);
             this.tabMovieInput.Controls.Add(this.label5);
             this.tabMovieInput.Controls.Add(this.label4);
             this.tabMovieInput.Controls.Add(this.txtMovieYear);
@@ -122,12 +125,12 @@ namespace MediaDB
             this.label3.TabIndex = 0;
             this.label3.Text = "Running Time";
             // 
-            // textBox1
+            // txtMovieRating
             // 
-            this.textBox1.Location = new System.Drawing.Point(17, 435);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 39);
-            this.textBox1.TabIndex = 1;
+            this.txtMovieRating.Location = new System.Drawing.Point(17, 435);
+            this.txtMovieRating.Name = "txtMovieRating";
+            this.txtMovieRating.Size = new System.Drawing.Size(200, 39);
+            this.txtMovieRating.TabIndex = 1;
             // 
             // label5
             // 
@@ -220,18 +223,49 @@ namespace MediaDB
             this.tabGameInput.Text = "Games";
             this.tabGameInput.UseVisualStyleBackColor = true;
             // 
-            // formDbInput
+            // listBoxAdded
+            // 
+            this.listBoxAdded.FormattingEnabled = true;
+            this.listBoxAdded.ItemHeight = 32;
+            this.listBoxAdded.Location = new System.Drawing.Point(549, 59);
+            this.listBoxAdded.Name = "listBoxAdded";
+            this.listBoxAdded.Size = new System.Drawing.Size(428, 516);
+            this.listBoxAdded.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(549, 13);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 32);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Added";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(549, 611);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 46);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Commit";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // FormDbInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 773);
+            this.ClientSize = new System.Drawing.Size(1004, 696);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.listBoxAdded);
             this.Controls.Add(this.tabControlInput);
-            this.Name = "formDbInput";
+            this.Name = "FormDbInput";
             this.Text = "Entry Form";
             this.tabControlInput.ResumeLayout(false);
             this.tabMovieInput.ResumeLayout(false);
             this.tabMovieInput.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -248,12 +282,15 @@ namespace MediaDB
         private System.Windows.Forms.TabPage tabGameInput;
         private System.Windows.Forms.TextBox txtMovieLength;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMovieRating;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkMovieSeen;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtMovieGenre;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnMovieSubmit;
+        private System.Windows.Forms.ListBox listBoxAdded;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
     }
 }
