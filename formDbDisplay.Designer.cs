@@ -1,7 +1,7 @@
 ﻿
 namespace MovieDB
 {
-    partial class formDbDisplay
+    partial class FormDbDisplay
     {
         /// <summary>
         ///  Required designer variable.
@@ -40,6 +40,7 @@ namespace MovieDB
             this.tabGames = new System.Windows.Forms.TabPage();
             this.tabBooks = new System.Windows.Forms.TabPage();
             this.tabRecords = new System.Windows.Forms.TabPage();
+            this.btnEnterNew = new System.Windows.Forms.Button();
             this.tabCategory.SuspendLayout();
             this.tabMovies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridMovies)).BeginInit();
@@ -55,7 +56,7 @@ namespace MovieDB
             this.tabCategory.Location = new System.Drawing.Point(12, 12);
             this.tabCategory.Name = "tabCategory";
             this.tabCategory.SelectedIndex = 0;
-            this.tabCategory.Size = new System.Drawing.Size(1350, 818);
+            this.tabCategory.Size = new System.Drawing.Size(1350, 593);
             this.tabCategory.TabIndex = 0;
             // 
             // tabMovies
@@ -68,7 +69,7 @@ namespace MovieDB
             this.tabMovies.Location = new System.Drawing.Point(8, 46);
             this.tabMovies.Name = "tabMovies";
             this.tabMovies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMovies.Size = new System.Drawing.Size(1334, 764);
+            this.tabMovies.Size = new System.Drawing.Size(1334, 539);
             this.tabMovies.TabIndex = 0;
             this.tabMovies.Text = "Movies";
             this.tabMovies.UseVisualStyleBackColor = true;
@@ -163,13 +164,24 @@ namespace MovieDB
             this.tabRecords.Text = "Records";
             this.tabRecords.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // btnEnterNew
+            // 
+            this.btnEnterNew.Location = new System.Drawing.Point(1076, 614);
+            this.btnEnterNew.Name = "btnEnterNew";
+            this.btnEnterNew.Size = new System.Drawing.Size(247, 46);
+            this.btnEnterNew.TabIndex = 1;
+            this.btnEnterNew.Text = "Add New Media";
+            this.btnEnterNew.UseVisualStyleBackColor = true;
+            this.btnEnterNew.Click += new System.EventHandler(this.BtnEnterNew_Click);
+            // 
+            // formDbDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1374, 842);
+            this.ClientSize = new System.Drawing.Size(1374, 684);
+            this.Controls.Add(this.btnEnterNew);
             this.Controls.Add(this.tabCategory);
-            this.Name = "Form1";
+            this.Name = "formDbDisplay";
             this.Text = "Robert Johnson\'s Media Library";
             this.tabCategory.ResumeLayout(false);
             this.tabMovies.ResumeLayout(false);
@@ -192,6 +204,7 @@ namespace MovieDB
         private System.Windows.Forms.DataGridView gridMovies;
         private System.Windows.Forms.Button btnGetAll;
         private System.Windows.Forms.ComboBox cmbSearch;
+        private System.Windows.Forms.Button btnEnterNew;
     }
 }
 

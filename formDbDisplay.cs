@@ -8,17 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using MediaDB;
 
 namespace MovieDB
 {
-    public partial class formDbDisplay : Form
+    public partial class FormDbDisplay : Form
     {
-        public formDbDisplay()
+        public FormDbDisplay()
         {
             InitializeComponent();
             
         }
-        public static string localPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MovieDB";
+        public static string localPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
         public static string relative = "[DataDirectory]";
 
         BindingSource binder = new BindingSource();
@@ -27,7 +28,6 @@ namespace MovieDB
             "Integrated Security = True; Connect Timeout = 30";
 
 
-        
 
         private void SearchSql()
         {
@@ -37,14 +37,13 @@ namespace MovieDB
 
             if (txtSearch.Text != String.Empty)
             {
-                // If search box is empty will attempt to parse to int. If not int message invalid
                 searchStr = txtSearch.Text;
                 string procedure = String.Empty;
                 string param = String.Empty;
                 try
                 {
-                    // Query DB for student ID entered in search
-                    //TODO: Add response message when no match found
+                    // Switch statement reads from combo box.
+                    // Dictates which column will be searched and which params will be sent
                     SqlConnection con = new SqlConnection(conString);
                     con.Open();
                     switch (searchCat)
@@ -120,5 +119,10 @@ namespace MovieDB
             }
         }
 
+        private void BtnEnterNew_Click(object sender, EventArgs e)
+        {
+            FormDbInput newInput = new FormDbInput();
+            newInput.Show();
+        }
     }
 }

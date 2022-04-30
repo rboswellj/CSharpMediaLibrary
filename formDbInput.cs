@@ -8,11 +8,16 @@ using System.Windows.Forms;
 
 namespace MediaDB
 {
-    public partial class formDbInput : Form
+    public partial class FormDbInput : Form
     {
-        public formDbInput()
+        public FormDbInput()
         {
             InitializeComponent();
+        }
+
+        private void BtnMovieSubmit_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
