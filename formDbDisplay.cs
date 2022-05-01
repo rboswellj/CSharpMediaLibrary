@@ -17,8 +17,9 @@ namespace MovieDB
         public FormDbDisplay()
         {
             InitializeComponent();
-            GetAllMovies();
+            GetAll("Movies");
         }
+
         public static string localPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
         public static string relative = "[DataDirectory]";
 
@@ -27,28 +28,38 @@ namespace MovieDB
             localPath + "\\media.mdf;" + 
             "Integrated Security = True; Connect Timeout = 30";
 
+        private void TabCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabCategory.SelectedTab == tabGames)
+            {
+                GetAll("Games");
+            }
+            else if (tabCategory.SelectedTab == tabMovies)
+            {
+                GetAll("Movies");
+            }
+        }
 
-
-        private void SearchMovie()
+        private void Search(string cat)
         {
             // Search by title
             string searchStr = String.Empty;
-            string searchCat = cmbMovieSearch.Text;
+            string searchCat = String.Empty;
+            string procedure = String.Empty;
+            string param = String.Empty;
 
-            if (txtMovieSearch.Text != String.Empty)
+            // Switch which DB is being searched
+            switch (cat)
             {
-                searchStr = txtMovieSearch.Text;
-                string procedure = String.Empty;
-                string param = String.Empty;
-                try
-                {
-                    // Switch statement reads from combo box.
-                    // Dictates which column will be searched and which params will be sent
-                    SqlConnection con = new SqlConnection(conString);
-                    con.Open();
+                case "Movies":
+                    searchCat = cmbMovieSearch.Text;
+                    searchStr = txtMovieSearch.Text;
+                    // Category of search in combo box dictates procedure and params
+                    //MessageBox.Show("Searching Movies");
                     switch (searchCat)
                     {
                         case "Title":
+                            //MessageBox.Show("Searching Title");
                             procedure = "GetMovieByTitle";
                             param = "@title";
                             break;
@@ -61,53 +72,21 @@ namespace MovieDB
                             param = "@director";
                             break;
                         default:
+                            //MessageBox.Show("Searching Title");
                             procedure = "GetMovieByTitle";
                             param = "@title";
                             break;
                     }
-
-                    SqlCommand cmd = new SqlCommand(procedure, con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter(param, $"%{searchStr}%"));
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    gridMovies.DataSource = binder;
-                    binder.DataSource = dataTable;
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("Search is empty. Please enter a title");
-            }
-        }
-
-        private void SearchGame()
-        {
-            // Search by title
-            string searchStr = String.Empty;
-            string searchCat = cmbGameSearch.Text;
-
-            if (txtMovieSearch.Text != String.Empty)
-            {
-                searchStr = txtGameSearch.Text;
-                string procedure = String.Empty;
-                string param = String.Empty;
-                try
-                {
-                    // Switch statement reads from combo box.
-                    // Dictates which column will be searched and which params will be sent
-                    SqlConnection con = new SqlConnection(conString);
-                    con.Open();
+                    break;
+                case "Games":
+                    //MessageBox.Show("Searching Games");
+                    searchCat = cmbGameSearch.Text;
+                    searchStr = txtGameSearch.Text;
+                    // Category of search in combo box dictates procedure and params
                     switch (searchCat)
                     {
                         case "Title":
+                            //MessageBox.Show("Searching Title");
                             procedure = "GetGameByTitle";
                             param = "@title";
                             break;
@@ -128,28 +107,42 @@ namespace MovieDB
                             param = "@title";
                             break;
                     }
-
-                    SqlCommand cmd = new SqlCommand(procedure, con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter(param, $"%{searchStr}%"));
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    gridGames.DataSource = binder;
-                    binder.DataSource = dataTable;
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
+                    break;
             }
-            else
+
+            try
             {
-                MessageBox.Show("Search is empty. Please enter a title");
+                MessageBox.Show("Sql Connection Starting");
+                MessageBox.Show($"Procedure {procedure}");
+                MessageBox.Show($"param {param}");
+                MessageBox.Show($"Cat {searchCat}");
+                MessageBox.Show($"String {searchStr}");
+
+                SqlConnection con = new SqlConnection(conString);
+                con.Open();
+                SqlCommand cmd = new SqlCommand(procedure, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter(param, $"%{searchStr}%"));
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                switch (cat)
+                {
+                    case "Movies":
+                        gridMovies.DataSource = binder;
+                        break;
+                    case "Games":
+                        gridGames.DataSource = binder;
+                        break;
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
+
 
         private void GetAll(string cat)
         {
@@ -162,10 +155,10 @@ namespace MovieDB
             binder.DataSource = dataTable;
             switch (cat)
             {
-                case "Movie":
+                case "Movies":
                     gridMovies.DataSource = binder;
                     break;
-                case "Game":
+                case "Games":
                     gridGames.DataSource = binder;
                     break;
             }
@@ -173,22 +166,30 @@ namespace MovieDB
             con.Close();
         }
 
-
+  
         private void BtnEnterNew_Click(object sender, EventArgs e)
         {
+            // Opens Input window
             FormDbInput newInput = new FormDbInput();
             newInput.Show();
         }
 
+        
 
         private void BtnMovieSearch_Click(object sender, EventArgs e)
         {
-            SearchMovie();
+            Search("Movies");
         }
 
         private void BtnMovieGetAll_Click(object sender, EventArgs e)
         {
             GetAll("Movies");
+        }
+
+
+        private void BtnGameSearch_Click(object sender, EventArgs e)
+        {
+            Search("Games");
         }
     }
 }

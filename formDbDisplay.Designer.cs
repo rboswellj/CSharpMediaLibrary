@@ -63,6 +63,7 @@ namespace MovieDB
             this.tabCategory.SelectedIndex = 0;
             this.tabCategory.Size = new System.Drawing.Size(1350, 593);
             this.tabCategory.TabIndex = 0;
+            this.tabCategory.SelectedIndexChanged += new System.EventHandler(this.TabCategory_SelectedIndexChanged);
             // 
             // tabMovies
             // 
@@ -188,6 +189,7 @@ namespace MovieDB
             this.btnGameSearch.TabIndex = 7;
             this.btnGameSearch.Text = "Search";
             this.btnGameSearch.UseVisualStyleBackColor = true;
+            this.btnGameSearch.Click += new System.EventHandler(this.BtnGameSearch_Click);
             // 
             // txtGameSearch
             // 
