@@ -19,12 +19,11 @@ namespace MediaDB
             InitializeComponent();
         }
 
-        public static string localPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
-        public static string relative = "[DataDirectory]";
+        public static string LocalPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
+        //public static string Relative = "[DataDirectory]";
 
-        BindingSource binder = new BindingSource();
         public static string conString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" +
-            localPath + "\\media.mdf;" +
+            LocalPath + "\\media.mdf;" +
             "Integrated Security = True; Connect Timeout = 30";
 
         List<Movie> movieList = new List<Movie>();
@@ -53,14 +52,8 @@ namespace MediaDB
         private void BtnMovieSubmit_Click(object sender, EventArgs e)
         {
             
-            int seen;
-            if (chkMovieSeen.Checked)
-            {
-                seen = 1;
-            } else
-            {
-                seen = 0;
-            }
+            int seen = chkMovieSeen.Checked ? 1 : 0;
+
             try
             {
                 movieList.Add(new Movie(txtMovieTitle.Text, Convert.ToInt32(txtMovieYear.Text), txtMovieDirector.Text,

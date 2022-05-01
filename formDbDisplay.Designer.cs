@@ -1,5 +1,5 @@
 ﻿
-namespace MovieDB
+namespace MediaDB
 {
     partial class FormDbDisplay
     {

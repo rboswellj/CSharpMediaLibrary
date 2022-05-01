@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using MediaDB;
 
-namespace MovieDB
+namespace MediaDB
 {
     public partial class FormDbDisplay : Form
     {
@@ -20,12 +20,12 @@ namespace MovieDB
             GetAll("Movies");
         }
 
-        public static string localPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
-        public static string relative = "[DataDirectory]";
+        public static string LocalPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
+        //public static string Relative = "[DataDirectory]";
 
         BindingSource binder = new BindingSource();
-        public static string conString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" +
-            localPath + "\\media.mdf;" + 
+        public static string ConString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" +
+            LocalPath + "\\media.mdf;" + 
             "Integrated Security = True; Connect Timeout = 30";
 
         private void TabCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace MovieDB
         {
             // Search by title
             string searchStr = String.Empty;
-            string searchCat = String.Empty;
+            string searchCat;
             string procedure = String.Empty;
             string param = String.Empty;
 
@@ -112,13 +112,13 @@ namespace MovieDB
 
             try
             {
-                MessageBox.Show("Sql Connection Starting");
-                MessageBox.Show($"Procedure {procedure}");
-                MessageBox.Show($"param {param}");
-                MessageBox.Show($"Cat {searchCat}");
-                MessageBox.Show($"String {searchStr}");
+                //MessageBox.Show("Sql Connection Starting");
+                //MessageBox.Show($"Procedure {procedure}");
+                //MessageBox.Show($"param {param}");
+                //MessageBox.Show($"Cat {searchCat}");
+                //MessageBox.Show($"String {searchStr}");
 
-                SqlConnection con = new SqlConnection(conString);
+                SqlConnection con = new SqlConnection(ConString);
                 con.Open();
                 SqlCommand cmd = new SqlCommand(procedure, con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -135,6 +135,8 @@ namespace MovieDB
                         gridGames.DataSource = binder;
                         break;
                 }
+                binder.DataSource = dataTable;
+                con.Close();
                 con.Close();
             }
             catch (Exception ex)
@@ -143,10 +145,63 @@ namespace MovieDB
             }
         }
 
+        private void SearchMovie()
+        {
+            // Search by title
+            string searchStr = String.Empty;
+            string searchCat = cmbMovieSearch.Text;
+
+
+                searchStr = txtMovieSearch.Text;
+                string procedure = String.Empty;
+                string param = String.Empty;
+                try
+                {
+                    // Switch statement reads from combo box.
+                    // Dictates which column will be searched and which params will be sent
+                    
+                    switch (searchCat)
+                    {
+                        case "Title":
+                            procedure = "GetMovieByTitle";
+                            param = "@title";
+                            break;
+                        case "Genre":
+                            procedure = "GetMovieByGenre";
+                            param = "@genre";
+                            break;
+                        case "Director":
+                            procedure = "GetMovieByDirector";
+                            param = "@director";
+                            break;
+                        default:
+                            procedure = "GetMovieByTitle";
+                            param = "@title";
+                            break;
+                    }
+                    SqlConnection con = new SqlConnection(ConString);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(procedure, con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter(param, $"%{searchStr}%"));
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    gridMovies.DataSource = binder;
+                    binder.DataSource = dataTable;
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+        }
+
 
         private void GetAll(string cat)
         {
-            SqlConnection con = new SqlConnection(conString);
+            SqlConnection con = new SqlConnection(ConString);
             con.Open();
             SqlCommand cmd = new SqlCommand("getAll" + cat, con);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -179,6 +234,7 @@ namespace MovieDB
         private void BtnMovieSearch_Click(object sender, EventArgs e)
         {
             Search("Movies");
+            //SearchMovie();
         }
 
         private void BtnMovieGetAll_Click(object sender, EventArgs e)
