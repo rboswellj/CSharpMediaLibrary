@@ -42,8 +42,6 @@ namespace MediaDB
             this.btnGameGetAll = new System.Windows.Forms.Button();
             this.btnGameSearch = new System.Windows.Forms.Button();
             this.txtGameSearch = new System.Windows.Forms.TextBox();
-            this.tabBooks = new System.Windows.Forms.TabPage();
-            this.tabRecords = new System.Windows.Forms.TabPage();
             this.btnEnterNew = new System.Windows.Forms.Button();
             this.tabCategory.SuspendLayout();
             this.tabMovies.SuspendLayout();
@@ -56,8 +54,6 @@ namespace MediaDB
             // 
             this.tabCategory.Controls.Add(this.tabMovies);
             this.tabCategory.Controls.Add(this.tabGames);
-            this.tabCategory.Controls.Add(this.tabBooks);
-            this.tabCategory.Controls.Add(this.tabRecords);
             this.tabCategory.Location = new System.Drawing.Point(12, 12);
             this.tabCategory.Name = "tabCategory";
             this.tabCategory.SelectedIndex = 0;
@@ -171,6 +167,7 @@ namespace MediaDB
             this.gridGames.RowTemplate.Height = 41;
             this.gridGames.Size = new System.Drawing.Size(1266, 660);
             this.gridGames.TabIndex = 9;
+            this.gridGames.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridGames_CellContentDoubleClick);
             // 
             // btnGameGetAll
             // 
@@ -199,24 +196,6 @@ namespace MediaDB
             this.txtGameSearch.Size = new System.Drawing.Size(372, 39);
             this.txtGameSearch.TabIndex = 6;
             this.txtGameSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtGameSearch_KeyUp);
-            // 
-            // tabBooks
-            // 
-            this.tabBooks.Location = new System.Drawing.Point(8, 46);
-            this.tabBooks.Name = "tabBooks";
-            this.tabBooks.Size = new System.Drawing.Size(1334, 780);
-            this.tabBooks.TabIndex = 3;
-            this.tabBooks.Text = "Books";
-            this.tabBooks.UseVisualStyleBackColor = true;
-            // 
-            // tabRecords
-            // 
-            this.tabRecords.Location = new System.Drawing.Point(8, 46);
-            this.tabRecords.Name = "tabRecords";
-            this.tabRecords.Size = new System.Drawing.Size(1334, 780);
-            this.tabRecords.TabIndex = 4;
-            this.tabRecords.Text = "Records";
-            this.tabRecords.UseVisualStyleBackColor = true;
             // 
             // btnEnterNew
             // 
@@ -254,8 +233,6 @@ namespace MediaDB
         private System.Windows.Forms.TabPage tabMovies;
         private System.Windows.Forms.TextBox txtMovieSearch;
         private System.Windows.Forms.TabPage tabGames;
-        private System.Windows.Forms.TabPage tabBooks;
-        private System.Windows.Forms.TabPage tabRecords;
         private System.Windows.Forms.Button btnMovieSearch;
         private System.Windows.Forms.DataGridView gridMovies;
         private System.Windows.Forms.Button btnMovieGetAll;

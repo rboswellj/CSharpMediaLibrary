@@ -27,10 +27,14 @@ namespace MediaDB
             txtMovieLength.Text = m.Length.ToString();
             txtMovieYear.Text = m.Year.ToString();
             txtMovieRating.Text = m.Rating.ToString();
-            txtMovieGenre.Text = m.Genre.ToString();
+            txtMovieGenre.Text = m.Genre;
             if(m.Seen == 1)
             {
                 chkMovieSeen.Checked = true;
+            }
+            else
+            {
+                chkMovieSeen.Checked = false;
             }
         }
 
@@ -66,7 +70,8 @@ namespace MediaDB
             cmd.ExecuteNonQuery();
             con.Close();
 
-            MessageBox.Show(FormDbInput.MsgCommit);
+
+            this.Close();
         }
     }
 }

@@ -26,8 +26,8 @@ namespace MediaDB
         public static string ConString = Config.ConString;
         public static Movie selectedMovie;
         public static int selectedMovieID;
-        static Game selectedGame;
-
+        public static Game selectedGame;
+        public static int selectedGameID;
 
         #region Methods
         private void Search(string cat)
@@ -135,7 +135,7 @@ namespace MediaDB
             }
         }
 
-        private void GetAll(string cat)
+        public void GetAll(string cat)
         {
             SqlConnection con = new SqlConnection(ConString);
             con.Open();
@@ -157,16 +157,6 @@ namespace MediaDB
             con.Close();
         }
 
-        private void Edit(string cat)
-        {
-            switch (cat)
-            {
-                case "Movies":
-                    FormDbUpdateMovie newUpdate = new FormDbUpdateMovie();
-                    newUpdate.Show();
-                    break;
-            }
-        }
 
         #endregion
 
@@ -212,6 +202,7 @@ namespace MediaDB
         private void GridMovies_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedMovieID = e.RowIndex + 1;
+            MessageBox.Show(selectedMovieID.ToString());
             DataGridViewRow row = gridMovies.Rows[e.RowIndex];
             //MessageBox.Show(row.Cells[5].Value.ToString());
             selectedMovie = new Movie(row.Cells[0].Value.ToString(),
@@ -246,9 +237,23 @@ namespace MediaDB
         }
 
 
+        private void GridGames_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedGameID = e.RowIndex + 1;
+            DataGridViewRow row = gridMovies.Rows[e.RowIndex];
+            selectedGame = new Game(row.Cells[0].Value.ToString(),
+                Convert.ToInt32(row.Cells[1].Value.ToString()),
+                row.Cells[2].Value.ToString(),
+                row.Cells[3].Value.ToString(),
+                Convert.ToInt32(row.Cells[4].Value.ToString()),
+                Convert.ToInt32(row.Cells[5].Value.ToString()),
+                row.Cells[6].Value.ToString()
+                
+            );
+            FormDbUpdateGame newUpdateGame = new FormDbUpdateGame();
+            newUpdateGame.Show();
+        }
 
         #endregion
-
-        
     }
 }
