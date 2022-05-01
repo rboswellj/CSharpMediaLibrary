@@ -83,6 +83,7 @@ namespace MediaDB
                 cmd.Parameters.Add(new SqlParameter("@id", FormDbDisplay.selectedGameID));
                 cmd.ExecuteNonQuery();
                 con.Close();
+                this.Close();
             }
         }
     }

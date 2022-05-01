@@ -44,6 +44,7 @@ namespace MediaDB
             this.label2 = new System.Windows.Forms.Label();
             this.txtMovieTitle = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnMovieDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMovieUpdate
@@ -170,11 +171,22 @@ namespace MediaDB
             this.label1.TabIndex = 16;
             this.label1.Text = "Title";
             // 
+            // btnMovieDelete
+            // 
+            this.btnMovieDelete.Location = new System.Drawing.Point(177, 509);
+            this.btnMovieDelete.Name = "btnMovieDelete";
+            this.btnMovieDelete.Size = new System.Drawing.Size(150, 46);
+            this.btnMovieDelete.TabIndex = 24;
+            this.btnMovieDelete.Text = "Delete";
+            this.btnMovieDelete.UseVisualStyleBackColor = true;
+            this.btnMovieDelete.Click += new System.EventHandler(this.BtnMovieDelete_Click);
+            // 
             // FormDbUpdateMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 595);
+            this.Controls.Add(this.btnMovieDelete);
             this.Controls.Add(this.btnMovieUpdate);
             this.Controls.Add(this.chkMovieSeen);
             this.Controls.Add(this.txtMovieLength);
@@ -214,5 +226,6 @@ namespace MediaDB
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtMovieTitle;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnMovieDelete;
     }
 }

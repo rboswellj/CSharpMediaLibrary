@@ -18,8 +18,9 @@ namespace MediaDB
         {
             InitializeComponent();
             GetAll("Movies");
+            
             cmbMovieSearch.SelectedIndex = 0;
-            cmbGameSearch.SelectedIndex = 0;
+            cmbGameSearch.SelectedIndex = 0;   
         }
 
         readonly BindingSource _binder = new BindingSource();
@@ -28,6 +29,34 @@ namespace MediaDB
         public static int selectedMovieID;
         public static Game selectedGame;
         public static int selectedGameID;
+
+        #region Grid Format
+        private void GridMovieFormat()
+        {
+            // Changing width on data grid cells, since the auto sizing is a nightmare
+            gridMovies.Columns[0].Width = 70;
+            gridMovies.Columns[1].Width = 300;
+            gridMovies.Columns[2].Width = 100;
+            gridMovies.Columns[3].Width = 250;
+            gridMovies.Columns[4].Width = 200;
+            gridMovies.Columns[5].Width = 110;
+            gridMovies.Columns[6].Width = 80;
+            gridMovies.Columns[7].Width = 70;
+        }
+        private void GridGamesFormat()
+        {
+            // Changing width on data grid cells, since the auto sizing is a nightmare
+            gridGames.Columns[0].Width = 70;
+            gridGames.Columns[1].Width = 300;
+            gridGames.Columns[2].Width = 100;
+            gridGames.Columns[3].Width = 200;
+            gridGames.Columns[4].Width = 100;
+            gridGames.Columns[5].Width = 110;
+            gridGames.Columns[6].Width = 80;
+            gridGames.Columns[7].Width = 200;
+        }
+
+        #endregion
 
         #region Methods
         private void Search(string cat)
@@ -148,9 +177,11 @@ namespace MediaDB
             {
                 case "Movies":
                     gridMovies.DataSource = _binder;
+                    GridMovieFormat();
                     break;
                 case "Games":
                     gridGames.DataSource = _binder;
+                    GridGamesFormat();
                     break;
             }
             
@@ -208,15 +239,15 @@ namespace MediaDB
 
         private void GridMovies_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            selectedMovieID = e.RowIndex + 1;
             DataGridViewRow row = gridMovies.Rows[e.RowIndex];
-            selectedMovie = new Movie(row.Cells[0].Value.ToString(),
-                Convert.ToInt32(row.Cells[1].Value.ToString()),
-                row.Cells[2].Value.ToString(),
-                row.Cells[4].Value.ToString(),
-                Convert.ToInt32(row.Cells[5].Value.ToString()),
+            selectedMovieID = Convert.ToInt32(row.Cells[0].Value.ToString());
+            selectedMovie = new Movie(row.Cells[1].Value.ToString(),
+                Convert.ToInt32(row.Cells[2].Value.ToString()),
+                row.Cells[3].Value.ToString(),
+                row.Cells[5].Value.ToString(),
                 Convert.ToInt32(row.Cells[6].Value.ToString()),
-                row.Cells[3].Value.ToString()
+                Convert.ToInt32(row.Cells[7].Value.ToString()),
+                row.Cells[4].Value.ToString()
             );
             FormDbUpdateMovie newUpdateMovie = new FormDbUpdateMovie();
             newUpdateMovie.Show();
@@ -250,15 +281,15 @@ namespace MediaDB
 
         private void GridGames_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            selectedGameID = e.RowIndex + 1;
             DataGridViewRow row = gridMovies.Rows[e.RowIndex];
-            selectedGame = new Game(row.Cells[0].Value.ToString(),
-                Convert.ToInt32(row.Cells[1].Value.ToString()),
-                row.Cells[2].Value.ToString(),
+            selectedGameID = Convert.ToInt32(row.Cells[0].Value.ToString());
+            selectedGame = new Game(row.Cells[1].Value.ToString(),
+                Convert.ToInt32(row.Cells[2].Value.ToString()),
                 row.Cells[3].Value.ToString(),
-                Convert.ToInt32(row.Cells[4].Value.ToString()),
+                row.Cells[4].Value.ToString(),
                 Convert.ToInt32(row.Cells[5].Value.ToString()),
-                row.Cells[6].Value.ToString()
+                Convert.ToInt32(row.Cells[6].Value.ToString()),
+                row.Cells[7].Value.ToString()
                 
             );
             FormDbUpdateGame newUpdateGame = new FormDbUpdateGame();

@@ -69,9 +69,23 @@ namespace MediaDB
             cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
             cmd.ExecuteNonQuery();
             con.Close();
-
-
             this.Close();
+        }
+
+        private void BtnMovieDelete_Click(object sender, EventArgs e)
+        {
+            var confirmed = MessageBox.Show("Are You Sure You Want To Delete?", "Confirm", MessageBoxButtons.YesNo);
+            if (confirmed == DialogResult.Yes)
+            {
+                SqlConnection con = new SqlConnection(FormDbInput.ConString);
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DeleteMovie", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@id", FormDbDisplay.selectedMovieID));
+                cmd.ExecuteNonQuery();
+                con.Close();
+                this.Close();
+            }
         }
     }
 }
