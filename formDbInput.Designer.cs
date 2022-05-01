@@ -110,7 +110,7 @@ namespace MediaDB
             // 
             // btnMovieClear
             // 
-            this.btnMovieClear.Location = new System.Drawing.Point(191, 515);
+            this.btnMovieClear.Location = new System.Drawing.Point(248, 515);
             this.btnMovieClear.Name = "btnMovieClear";
             this.btnMovieClear.Size = new System.Drawing.Size(150, 46);
             this.btnMovieClear.TabIndex = 9;
@@ -122,9 +122,9 @@ namespace MediaDB
             // 
             this.btnMovieAdd.Location = new System.Drawing.Point(17, 515);
             this.btnMovieAdd.Name = "btnMovieAdd";
-            this.btnMovieAdd.Size = new System.Drawing.Size(150, 46);
+            this.btnMovieAdd.Size = new System.Drawing.Size(225, 46);
             this.btnMovieAdd.TabIndex = 8;
-            this.btnMovieAdd.Text = "Add";
+            this.btnMovieAdd.Text = "Add / Update";
             this.btnMovieAdd.UseVisualStyleBackColor = true;
             this.btnMovieAdd.Click += new System.EventHandler(this.BtnMovieAdd_Click);
             // 
@@ -270,7 +270,7 @@ namespace MediaDB
             // 
             // btnGameClear
             // 
-            this.btnGameClear.Location = new System.Drawing.Point(191, 515);
+            this.btnGameClear.Location = new System.Drawing.Point(248, 515);
             this.btnGameClear.Name = "btnGameClear";
             this.btnGameClear.Size = new System.Drawing.Size(150, 46);
             this.btnGameClear.TabIndex = 25;
@@ -282,9 +282,9 @@ namespace MediaDB
             // 
             this.btnGameAdd.Location = new System.Drawing.Point(17, 515);
             this.btnGameAdd.Name = "btnGameAdd";
-            this.btnGameAdd.Size = new System.Drawing.Size(150, 46);
+            this.btnGameAdd.Size = new System.Drawing.Size(225, 46);
             this.btnGameAdd.TabIndex = 24;
-            this.btnGameAdd.Text = "Add";
+            this.btnGameAdd.Text = "Add / Update";
             this.btnGameAdd.UseVisualStyleBackColor = true;
             this.btnGameAdd.Click += new System.EventHandler(this.BtnGameAdd_Click);
             // 
@@ -410,6 +410,7 @@ namespace MediaDB
             this.listBoxAdded.Name = "listBoxAdded";
             this.listBoxAdded.Size = new System.Drawing.Size(428, 516);
             this.listBoxAdded.TabIndex = 4;
+            this.listBoxAdded.SelectedIndexChanged += new System.EventHandler(this.ListBoxAdded_SelectedIndexChanged);
             // 
             // label7
             // 

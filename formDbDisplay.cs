@@ -50,10 +50,10 @@ namespace MediaDB
             gridGames.Columns[1].Width = 300;
             gridGames.Columns[2].Width = 100;
             gridGames.Columns[3].Width = 200;
-            gridGames.Columns[4].Width = 100;
-            gridGames.Columns[5].Width = 110;
-            gridGames.Columns[6].Width = 80;
-            gridGames.Columns[7].Width = 200;
+            gridGames.Columns[4].Width = 110;
+            gridGames.Columns[5].Width = 100;
+            gridGames.Columns[6].Width = 70;
+            gridGames.Columns[7].Width = 210;
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -18,7 +19,6 @@ namespace MediaDB
         {
             InitializeComponent();
         }
-
 
         public static string ConString = Config.ConString;
 
@@ -37,7 +37,7 @@ namespace MediaDB
         {
             foreach (Movie m in list)
             {
-                listBoxAdded.Items.Add(m.Title);
+                listBoxAdded.Items.Add("M: " + m.Title);
             }
         }
 
@@ -45,7 +45,7 @@ namespace MediaDB
         {
             foreach (Game g in list)
             {
-                listBoxAdded.Items.Add(g.Title);
+                listBoxAdded.Items.Add("G: " + g.Title);
             }
         }
 
@@ -58,6 +58,8 @@ namespace MediaDB
                 Control[] contArray = this.Controls.Find("txt" + category + name, true);
                 contArray[0].Text = "";
             }
+            chkMovieSeen.Checked = false;
+            chkGamePlayed.Checked = false;
         }
 
         private void Add(string cat)
@@ -70,39 +72,93 @@ namespace MediaDB
             {
                 case "Movies":
                     int seen = chkMovieSeen.Checked ? 1 : 0;
-
-                    try
+                    // Check to see if we are updating an item already in the list,
+                    // Or adding a new item
+                    if (!listBoxAdded.Items.Contains("M: " + txtMovieTitle.Text))
                     {
-                        MovieList.Add(new Movie(txtMovieTitle.Text, Convert.ToInt32(txtMovieYear.Text), txtMovieDirector.Text,
-                            txtMovieLength.Text, Convert.ToInt32(txtMovieRating.Text), seen, txtMovieGenre.Text));
+                        try
+                        {
+                            MovieList.Add(new Movie(
+                                txtMovieTitle.Text, 
+                                Convert.ToInt32(txtMovieYear.Text), 
+                                txtMovieDirector.Text, 
+                                txtMovieLength.Text, 
+                                Convert.ToInt32(txtMovieRating.Text), 
+                                seen, txtMovieGenre.Text
+                            ));
+                            listBoxAdded.ClearSelected();
+                            listBoxAdded.Items.Clear();
+                            PopulateListBox(MovieList);
+                            PopulateListBox(GameList);
+                            ClearFields(MovieFields, "Movie");
+
+                        }
+                        catch
+                        {
+                            MessageBox.Show(MsgInvalid);
+                        }
+
+                    } 
+                    else
+                    {
+                        var selectedMovie = MovieList.FirstOrDefault(
+                            m => m.Title == txtMovieTitle.Text);
+                        selectedMovie.Title = txtMovieTitle.Text;
+                        selectedMovie.Director = txtMovieDirector.Text;
+                        selectedMovie.Year = Convert.ToInt32(txtMovieYear.Text);
+                        selectedMovie.Length = TimeSpan.Parse(txtMovieLength.Text);
+                        selectedMovie.Rating = Convert.ToInt32(txtMovieRating.Text);
+                        selectedMovie.Genre = txtMovieGenre.Text;
+                        selectedMovie.Seen = chkMovieSeen.Checked ? 1 : 0;
                         listBoxAdded.ClearSelected();
                         listBoxAdded.Items.Clear();
                         PopulateListBox(MovieList);
                         PopulateListBox(GameList);
                         ClearFields(MovieFields, "Movie");
-
                     }
-                    catch
-                    {
-                        MessageBox.Show(MsgInvalid);
-                    }
-
                     break;
+                    
                 case "Games":
                     int played = chkGamePlayed.Checked ? 1 : 0;
-                    try
+                    if (!listBoxAdded.Items.Contains("G: " + txtGameTitle.Text))
                     {
-                        GameList.Add(new Game(txtGameTitle.Text, Convert.ToInt32(txtGameYear.Text), 
-                            txtGameDeveloper.Text, txtGamePlatform.Text, Convert.ToInt32(txtGameScore.Text), played, txtGameGenre.Text));
+                        try
+                        {
+                            GameList.Add(new Game(
+                                txtGameTitle.Text,
+                                Convert.ToInt32(txtGameYear.Text),
+                                txtGameDeveloper.Text,
+                                txtGamePlatform.Text,
+                                Convert.ToInt32(txtGameScore.Text),
+                                played, txtGameGenre.Text
+                            ));
+                            listBoxAdded.ClearSelected();
+                            listBoxAdded.Items.Clear();
+                            PopulateListBox(MovieList);
+                            PopulateListBox(GameList);
+                            ClearFields(GameFields, "Game");
+                        }
+                        catch
+                        {
+                            MessageBox.Show(MsgInvalid);
+                        }
+                    }
+                    else
+                    {
+                        var selectedGame = GameList.FirstOrDefault(
+                            g => g.Title == txtGameTitle.Text);
+                        selectedGame.Title = txtGameTitle.Text;
+                        selectedGame.Developer = txtGameDeveloper.Text;
+                        selectedGame.Year = Convert.ToInt32(txtGameYear.Text);
+                        selectedGame.Platform = txtGamePlatform.Text;
+                        selectedGame.Score = Convert.ToInt32(txtGameScore.Text);
+                        selectedGame.Genre = txtGameGenre.Text;
+                        selectedGame.Played = chkGamePlayed.Checked ? 1 : 0;
                         listBoxAdded.ClearSelected();
                         listBoxAdded.Items.Clear();
                         PopulateListBox(MovieList);
                         PopulateListBox(GameList);
                         ClearFields(GameFields, "Game");
-                    }
-                    catch
-                    {
-                        MessageBox.Show(MsgInvalid);
                     }
                     break;
             }
@@ -113,7 +169,8 @@ namespace MediaDB
 
         private void BtnEntryCommit_Click(object sender, EventArgs e)
         {
-            var confirmed = MessageBox.Show("Are you sure you want to commit these items?", "Confirm", MessageBoxButtons.YesNo);
+            var confirmed = MessageBox.Show("Are you sure you want to commit these items?", 
+                "Confirm", MessageBoxButtons.YesNo);
             if(confirmed == DialogResult.Yes)
             {
                 SqlConnection con = new SqlConnection(ConString);
@@ -188,5 +245,59 @@ namespace MediaDB
         {
             ClearFields(GameFields, "Game");
         }
+
+        private void ListBoxAdded_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listBoxAdded.SelectedItem != null)
+                {
+                    string selectedName = listBoxAdded.SelectedItem.ToString();
+                    switch (selectedName[0])
+                    {
+                        case 'M':
+                            tabControlInput.SelectedTab = tabMovieInput;
+                            var selectedMovie = MovieList.FirstOrDefault(m => m.Title == selectedName[3..]);
+                            txtMovieTitle.Text = selectedMovie.Title;
+                            txtMovieDirector.Text = selectedMovie.Director;
+                            txtMovieYear.Text = selectedMovie.Year.ToString();
+                            txtMovieLength.Text = selectedMovie.Length.ToString();
+                            txtMovieRating.Text = selectedMovie.Rating.ToString();
+                            txtMovieGenre.Text = selectedMovie.Genre;
+                            if (selectedMovie.Seen == 1)
+                            {
+                                chkMovieSeen.Checked = true;
+                            }
+                            else
+                            {
+                                chkMovieSeen.Checked = false;
+                            }
+                            break;
+                        case 'G':
+                            tabControlInput.SelectedTab = tabGameInput;
+                            var selectedGame = GameList.FirstOrDefault(g => g.Title == selectedName[3..]);
+                            txtGameTitle.Text = selectedGame.Title;
+                            txtGameDeveloper.Text = selectedGame.Developer;
+                            txtGameYear.Text = selectedGame.Year.ToString();
+                            txtGamePlatform.Text = selectedGame.Platform;
+                            txtGameScore.Text = selectedGame.Score.ToString();
+                            txtGameGenre.Text = selectedGame.Genre;
+                            if (selectedGame.Played == 1)
+                            {
+                                chkGamePlayed.Checked = true;
+                            }
+                            else
+                            {
+                                chkGamePlayed.Checked = false;
+                            }
+                            break;
+                    }
+
+                }
+                }
+                catch (Exception err) { }
+
+            }
+        }
     }
-}
+
