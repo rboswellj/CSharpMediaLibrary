@@ -24,8 +24,8 @@ namespace MediaDB
 
         List<Movie> MovieList = new List<Movie>();
         List<Game> GameList = new List<Game>();
-        public string MsgInvalid = "Invalid Entries. Please double check fields";
-        public string MsgCommit = "Changes Committed";
+        public static string MsgInvalid = "Invalid Entries. Please double check fields";
+        public static string MsgCommit = "Changes Committed";
         public string[] MovieFields = { "Title", "Year", "Director", "Length", "Rating", "Genre" };
         public string[] GameFields = { "Title", "Year", "Developer", "Platform", "Score", "Genre" };
 

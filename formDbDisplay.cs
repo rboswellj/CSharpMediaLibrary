@@ -23,21 +23,13 @@ namespace MediaDB
         }
 
         readonly BindingSource _binder = new BindingSource();
-
         public static string ConString = Config.ConString;
+        public static Movie selectedMovie;
+        public static int selectedMovieID;
+        static Game selectedGame;
 
-        private void TabCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabCategory.SelectedTab == tabGames)
-            {
-                GetAll("Games");
-            }
-            else if (tabCategory.SelectedTab == tabMovies)
-            {
-                GetAll("Movies");
-            }
-        }
 
+        #region Methods
         private void Search(string cat)
         {
             // Search by title
@@ -165,7 +157,33 @@ namespace MediaDB
             con.Close();
         }
 
+        private void Edit(string cat)
+        {
+            switch (cat)
+            {
+                case "Movies":
+                    FormDbUpdateMovie newUpdate = new FormDbUpdateMovie();
+                    newUpdate.Show();
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region Events
+
         // Window Events
+        private void TabCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabCategory.SelectedTab == tabGames)
+            {
+                GetAll("Games");
+            }
+            else if (tabCategory.SelectedTab == tabMovies)
+            {
+                GetAll("Movies");
+            }
+        }
         private void BtnEnterNew_Click(object sender, EventArgs e)
         {
             // Opens Input window
@@ -191,6 +209,23 @@ namespace MediaDB
             }
         }
 
+        private void GridMovies_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedMovieID = e.RowIndex + 1;
+            DataGridViewRow row = gridMovies.Rows[e.RowIndex];
+            //MessageBox.Show(row.Cells[5].Value.ToString());
+            selectedMovie = new Movie(row.Cells[0].Value.ToString(),
+                Convert.ToInt32(row.Cells[1].Value.ToString()),
+                row.Cells[2].Value.ToString(),
+                row.Cells[4].Value.ToString(),
+                Convert.ToInt32(row.Cells[5].Value.ToString()),
+                Convert.ToInt32(row.Cells[6].Value.ToString()),
+                row.Cells[3].Value.ToString()
+            );
+            FormDbUpdateMovie newUpdate = new FormDbUpdateMovie();
+            newUpdate.Show();
+        }
+
         // Game Tab Events
         private void BtnGameGetAll_Click(object sender, EventArgs e)
         {
@@ -209,6 +244,10 @@ namespace MediaDB
                 Search("Games");
             }
         }
+
+
+
+        #endregion
 
         
     }

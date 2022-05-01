@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MediaDB
 {
-    internal class Game
+    public class Game
     {
         public Game(string inTitle, int inYear, string inDeveloper,
             string inPlatform, int inScore, int inPlayed, string inGenre)

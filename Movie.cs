@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MediaDB
 {
-    class Movie
+    public class Movie
     {
         [Required]
         public string Title { get; set; }

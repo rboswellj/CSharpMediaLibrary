@@ -103,6 +103,7 @@ namespace MediaDB
             this.gridMovies.RowTemplate.Height = 41;
             this.gridMovies.Size = new System.Drawing.Size(1266, 660);
             this.gridMovies.TabIndex = 4;
+            this.gridMovies.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridMovies_CellContentDoubleClick);
             // 
             // btnMovieGetAll
             // 
