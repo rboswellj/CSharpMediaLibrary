@@ -8,29 +8,29 @@ namespace MediaDB
     class Movie
     {
         [Required]
-        public string title { get; set; }
+        public string Title { get; set; }
         [RangeAttribute(0, 3000)]
-        public int year { get; set; }
+        public int Year { get; set; }
         [Required, RegularExpression("/^[A-Za-z]+$/")]
-        public string director { get; set; }
+        public string Director { get; set; }
         [Required, RegularExpression("/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/")]
-        public TimeSpan length { get; set; }
+        public TimeSpan Length { get; set; }
         [RangeAttribute(0, 100)]
-        public int tomato_rating { get; set; }
-        public int seen { get; set; }
+        public int Rating { get; set; }
+        public int Seen { get; set; }
         [Required, RegularExpression("/^[A-Za-z]+$/")]
-        public string genre { get; set; }
+        public string Genre { get; set; }
 
-        public Movie(string in_title, int in_year, string in_director, 
-            string in_length, int in_tomato, int in_seen, string in_genre)
+        public Movie(string inTitle, int inYear, string inDirector, 
+            string inLength, int inRating, int inSeen, string inGenre)
         {
-            title = in_title;
-            year = in_year;
-            director = in_director;
-            length = TimeSpan.Parse(in_length);
-            tomato_rating = in_tomato;
-            seen = in_seen;
-            genre = in_genre;
+            Title = inTitle;
+            Year = inYear;
+            Director = inDirector;
+            Length = TimeSpan.Parse(inLength);
+            Rating = inRating;
+            Seen = inSeen;
+            Genre = inGenre;
         }
 
     }

@@ -27,13 +27,26 @@ namespace MediaDB
             "Integrated Security = True; Connect Timeout = 30";
 
         List<Movie> movieList = new List<Movie>();
+        List<Game> gameList = new List<Game>();
         public string[] movieFields = { "Title", "Year", "Director", "Length", "Rating", "Genre" };
 
+        // Creates new instances of category classes and adds to a list, rather than push
+        // individual additions directly to the db. This feels cleaner
+        // Because you only make one DB call for the whole input operation
+        // Adds new objects into a list box so they can be inspected before commiting
         private void PopulateListBox(List<Movie> list)
         {
             foreach (Movie m in list)
             {
-                listBoxAdded.Items.Add(m.title);
+                listBoxAdded.Items.Add(m.Title);
+            }
+        }
+
+        private void PopulateListBox(List<Game> list)
+        {
+            foreach (Game g in list)
+            {
+                listBoxAdded.Items.Add(g.Title);
             }
         }
 
@@ -48,34 +61,44 @@ namespace MediaDB
             }
         }
 
-
-        private void BtnMovieSubmit_Click(object sender, EventArgs e)
+        private void Add(string cat)
         {
-            
-            int seen = chkMovieSeen.Checked ? 1 : 0;
+            // Switch to determine what table is being updates.
+            // Validation handled inside classes using System.ComponentModel.DataAnnotations;
+            // Will throw exception if validation standards not met.
+            // Prompts to check entries and try again.
+            switch (cat)
+            {
+                case "Movies":
+                int seen = chkMovieSeen.Checked ? 1 : 0;
 
-            try
-            {
-                movieList.Add(new Movie(txtMovieTitle.Text, Convert.ToInt32(txtMovieYear.Text), txtMovieDirector.Text,
-                    txtMovieLength.Text, Convert.ToInt32(txtMovieRating.Text), seen, txtMovieGenre.Text));
-                listBoxAdded.ClearSelected();
-                listBoxAdded.Items.Clear();
-                PopulateListBox(movieList);
-                ClearFields(movieFields, "Movie");
+                try
+                {
+                    movieList.Add(new Movie(txtMovieTitle.Text, Convert.ToInt32(txtMovieYear.Text), txtMovieDirector.Text,
+                        txtMovieLength.Text, Convert.ToInt32(txtMovieRating.Text), seen, txtMovieGenre.Text));
+                    listBoxAdded.ClearSelected();
+                    listBoxAdded.Items.Clear();
+                    PopulateListBox(movieList);
+                    ClearFields(movieFields, "Movie");
 
-            }
-            catch (ValidationException ve)
-            {
-                //MessageBox.Show(ve.Message);
-                MessageBox.Show("Invalid Entries. Please double check fields");
-            }
-            catch(Exception err)
-            {
-                //MessageBox.Show(err.Message);
-                MessageBox.Show("Invalid Entries. Please double check fields");
+                }
+                catch (ValidationException ve)
+                {
+                    //MessageBox.Show(ve.Message);
+                    MessageBox.Show("Invalid Entries. Please double check fields");
+                }
+                catch (Exception err)
+                {
+                    //MessageBox.Show(err.Message);
+                    MessageBox.Show("Invalid Entries. Please double check fields");
+                }
+
+                break;
+
             }
 
         }
+
 
         private void BtnMovieClear_Click(object sender, EventArgs e)
         {
@@ -92,13 +115,13 @@ namespace MediaDB
                     con.Open();
                     SqlCommand cmd = new SqlCommand("AddMovie", con);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@title", m.title));
-                    cmd.Parameters.Add(new SqlParameter("@year", m.year));
-                    cmd.Parameters.Add(new SqlParameter("@director", m.director));
-                    cmd.Parameters.Add(new SqlParameter("@length", m.length));
-                    cmd.Parameters.Add(new SqlParameter("@rating", m.tomato_rating));
-                    cmd.Parameters.Add(new SqlParameter("@seen", m.seen));
-                    cmd.Parameters.Add(new SqlParameter("@genre", m.genre));
+                    cmd.Parameters.Add(new SqlParameter("@title", m.Title));
+                    cmd.Parameters.Add(new SqlParameter("@year", m.Year));
+                    cmd.Parameters.Add(new SqlParameter("@director", m.Director));
+                    cmd.Parameters.Add(new SqlParameter("@length", m.Length));
+                    cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
+                    cmd.Parameters.Add(new SqlParameter("@seen", m.Seen));
+                    cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Updated:");
@@ -110,6 +133,37 @@ namespace MediaDB
                     MessageBox.Show(err.Message);
                 }
             }
+            foreach (Game m in gameList)
+            {
+                try
+                {
+                    SqlConnection con = new SqlConnection(conString);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("AddGame", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@title", m.Title));
+                    cmd.Parameters.Add(new SqlParameter("@year", m.Year));
+                    cmd.Parameters.Add(new SqlParameter("@developer", m.Developer));
+                    cmd.Parameters.Add(new SqlParameter("@platform", m.Platform));
+                    cmd.Parameters.Add(new SqlParameter("@score", m.Score));
+                    cmd.Parameters.Add(new SqlParameter("@played", m.Played));
+                    cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Updated:");
+
+                    con.Close();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
+            }
+        }
+
+        private void BtnMovieAdd_Click(object sender, EventArgs e)
+        {
+            Add("Movies");
         }
     }
 }
