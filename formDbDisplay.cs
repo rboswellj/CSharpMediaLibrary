@@ -179,6 +179,13 @@ namespace MediaDB
             // Opens Input window
             FormDbInput newInput = new FormDbInput();
             newInput.Show();
+            newInput.FormClosed += new FormClosedEventHandler(EnterNewClosed);
+        }
+
+        private void EnterNewClosed(object sender, FormClosedEventArgs e)
+        {
+            tabCategory.SelectedTab = tabMovies;
+            GetAll("Movies");
         }
 
         // Movie Tab Events
@@ -202,9 +209,7 @@ namespace MediaDB
         private void GridMovies_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedMovieID = e.RowIndex + 1;
-            MessageBox.Show(selectedMovieID.ToString());
             DataGridViewRow row = gridMovies.Rows[e.RowIndex];
-            //MessageBox.Show(row.Cells[5].Value.ToString());
             selectedMovie = new Movie(row.Cells[0].Value.ToString(),
                 Convert.ToInt32(row.Cells[1].Value.ToString()),
                 row.Cells[2].Value.ToString(),
@@ -213,8 +218,15 @@ namespace MediaDB
                 Convert.ToInt32(row.Cells[6].Value.ToString()),
                 row.Cells[3].Value.ToString()
             );
-            FormDbUpdateMovie newUpdate = new FormDbUpdateMovie();
-            newUpdate.Show();
+            FormDbUpdateMovie newUpdateMovie = new FormDbUpdateMovie();
+            newUpdateMovie.Show();
+            newUpdateMovie.FormClosed += new FormClosedEventHandler(UpdateMovieClosed);
+        }
+
+        private void UpdateMovieClosed (object sender, FormClosedEventArgs e)
+        {
+            // Refresh Movie table after update
+            GetAll("Movies");
         }
 
         // Game Tab Events
@@ -236,7 +248,6 @@ namespace MediaDB
             }
         }
 
-
         private void GridGames_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedGameID = e.RowIndex + 1;
@@ -252,6 +263,12 @@ namespace MediaDB
             );
             FormDbUpdateGame newUpdateGame = new FormDbUpdateGame();
             newUpdateGame.Show();
+            newUpdateGame.FormClosed += new FormClosedEventHandler(UpdateGameClosed);
+        }
+        private void UpdateGameClosed(object sender, FormClosedEventArgs e)
+        {
+            // Refresh Games table after update
+            GetAll("Games");
         }
 
         #endregion

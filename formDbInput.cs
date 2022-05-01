@@ -113,52 +113,58 @@ namespace MediaDB
 
         private void BtnEntryCommit_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(ConString);
-            con.Open();
-            foreach (Movie m in MovieList)
+            var confirmed = MessageBox.Show("Are you sure you want to commit these items?", "Confirm", MessageBoxButtons.YesNo);
+            if(confirmed == DialogResult.Yes)
             {
-                try
+                SqlConnection con = new SqlConnection(ConString);
+                con.Open();
+                foreach (Movie m in MovieList)
                 {
-                    SqlCommand cmd = new SqlCommand("AddMovie", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@title", m.Title));
-                    cmd.Parameters.Add(new SqlParameter("@year", m.Year));
-                    cmd.Parameters.Add(new SqlParameter("@director", m.Director));
-                    cmd.Parameters.Add(new SqlParameter("@length", m.Length));
-                    cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
-                    cmd.Parameters.Add(new SqlParameter("@seen", m.Seen));
-                    cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand("AddMovie", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@title", m.Title));
+                        cmd.Parameters.Add(new SqlParameter("@year", m.Year));
+                        cmd.Parameters.Add(new SqlParameter("@director", m.Director));
+                        cmd.Parameters.Add(new SqlParameter("@length", m.Length));
+                        cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
+                        cmd.Parameters.Add(new SqlParameter("@seen", m.Seen));
+                        cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message);
+                    }
                 }
-                catch(Exception err)
+                foreach (Game m in GameList)
                 {
-                    MessageBox.Show(err.Message);
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand("AddGame", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@title", m.Title));
+                        cmd.Parameters.Add(new SqlParameter("@year", m.Year));
+                        cmd.Parameters.Add(new SqlParameter("@developer", m.Developer));
+                        cmd.Parameters.Add(new SqlParameter("@platform", m.Platform));
+                        cmd.Parameters.Add(new SqlParameter("@score", m.Score));
+                        cmd.Parameters.Add(new SqlParameter("@played", m.Played));
+                        cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message);
+                    }
                 }
+                listBoxAdded.ClearSelected();
+                listBoxAdded.Items.Clear();
+                con.Close();
+                this.Close();
             }
-            foreach (Game m in GameList)
-            {
-                try
-                {
-                    SqlCommand cmd = new SqlCommand("AddGame", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@title", m.Title));
-                    cmd.Parameters.Add(new SqlParameter("@year", m.Year));
-                    cmd.Parameters.Add(new SqlParameter("@developer", m.Developer));
-                    cmd.Parameters.Add(new SqlParameter("@platform", m.Platform));
-                    cmd.Parameters.Add(new SqlParameter("@score", m.Score));
-                    cmd.Parameters.Add(new SqlParameter("@played", m.Played));
-                    cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception err)
-                {
-                    MessageBox.Show(err.Message);
-                }
-            }
-            listBoxAdded.ClearSelected();
-            listBoxAdded.Items.Clear();
-            con.Close();
-            MessageBox.Show(MsgCommit);
+            
+            
         }
 
         // Movie Events

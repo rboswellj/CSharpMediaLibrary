@@ -29,6 +29,8 @@ namespace MediaDB
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabCategory = new System.Windows.Forms.TabControl();
             this.tabMovies = new System.Windows.Forms.TabPage();
             this.cmbMovieSearch = new System.Windows.Forms.ComboBox();
@@ -90,11 +92,21 @@ namespace MediaDB
             // 
             // gridMovies
             // 
-            this.gridMovies.AllowUserToOrderColumns = true;
-            this.gridMovies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.gridMovies.AllowUserToAddRows = false;
+            this.gridMovies.AllowUserToDeleteRows = false;
+            this.gridMovies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridMovies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridMovies.DefaultCellStyle = dataGridViewCellStyle1;
             this.gridMovies.Location = new System.Drawing.Point(34, 88);
             this.gridMovies.Name = "gridMovies";
+            this.gridMovies.ReadOnly = true;
             this.gridMovies.RowHeadersWidth = 82;
             this.gridMovies.RowTemplate.Height = 41;
             this.gridMovies.Size = new System.Drawing.Size(1266, 660);
@@ -158,12 +170,23 @@ namespace MediaDB
             // 
             // gridGames
             // 
-            this.gridGames.AllowUserToOrderColumns = true;
-            this.gridGames.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.gridGames.AllowUserToAddRows = false;
+            this.gridGames.AllowUserToDeleteRows = false;
+            this.gridGames.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridGames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridGames.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridGames.Location = new System.Drawing.Point(34, 88);
             this.gridGames.Name = "gridGames";
-            this.gridGames.RowHeadersWidth = 82;
+            this.gridGames.ReadOnly = true;
+            this.gridGames.RowHeadersWidth = 100;
             this.gridGames.RowTemplate.Height = 41;
             this.gridGames.Size = new System.Drawing.Size(1266, 660);
             this.gridGames.TabIndex = 9;

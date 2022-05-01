@@ -44,6 +44,7 @@ namespace MediaDB
             this.label13 = new System.Windows.Forms.Label();
             this.txtGameTitle = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.btnGameDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGameUpdate
@@ -170,11 +171,22 @@ namespace MediaDB
             this.label14.TabIndex = 32;
             this.label14.Text = "Title";
             // 
+            // btnGameDelete
+            // 
+            this.btnGameDelete.Location = new System.Drawing.Point(177, 513);
+            this.btnGameDelete.Name = "btnGameDelete";
+            this.btnGameDelete.Size = new System.Drawing.Size(150, 46);
+            this.btnGameDelete.TabIndex = 40;
+            this.btnGameDelete.Text = "Delete";
+            this.btnGameDelete.UseVisualStyleBackColor = true;
+            this.btnGameDelete.Click += new System.EventHandler(this.BtnGameDelete_Click);
+            // 
             // FormDbUpdateGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 623);
+            this.ClientSize = new System.Drawing.Size(490, 601);
+            this.Controls.Add(this.btnGameDelete);
             this.Controls.Add(this.btnGameUpdate);
             this.Controls.Add(this.chkGamePlayed);
             this.Controls.Add(this.txtGamePlatform);
@@ -214,5 +226,6 @@ namespace MediaDB
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtGameTitle;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnGameDelete;
     }
 }
