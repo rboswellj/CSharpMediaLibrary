@@ -145,60 +145,6 @@ namespace MediaDB
             }
         }
 
-        private void SearchMovie()
-        {
-            // Search by title
-            string searchStr = String.Empty;
-            string searchCat = cmbMovieSearch.Text;
-
-
-                searchStr = txtMovieSearch.Text;
-                string procedure = String.Empty;
-                string param = String.Empty;
-                try
-                {
-                    // Switch statement reads from combo box.
-                    // Dictates which column will be searched and which params will be sent
-                    
-                    switch (searchCat)
-                    {
-                        case "Title":
-                            procedure = "GetMovieByTitle";
-                            param = "@title";
-                            break;
-                        case "Genre":
-                            procedure = "GetMovieByGenre";
-                            param = "@genre";
-                            break;
-                        case "Director":
-                            procedure = "GetMovieByDirector";
-                            param = "@director";
-                            break;
-                        default:
-                            procedure = "GetMovieByTitle";
-                            param = "@title";
-                            break;
-                    }
-                    SqlConnection con = new SqlConnection(ConString);
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand(procedure, con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter(param, $"%{searchStr}%"));
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    gridMovies.DataSource = binder;
-                    binder.DataSource = dataTable;
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-        }
-
-
         private void GetAll(string cat)
         {
             SqlConnection con = new SqlConnection(ConString);
@@ -234,7 +180,6 @@ namespace MediaDB
         private void BtnMovieSearch_Click(object sender, EventArgs e)
         {
             Search("Movies");
-            //SearchMovie();
         }
 
         private void BtnMovieGetAll_Click(object sender, EventArgs e)
