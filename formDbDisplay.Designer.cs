@@ -61,7 +61,7 @@ namespace MediaDB
             this.tabCategory.Location = new System.Drawing.Point(12, 12);
             this.tabCategory.Name = "tabCategory";
             this.tabCategory.SelectedIndex = 0;
-            this.tabCategory.Size = new System.Drawing.Size(1350, 593);
+            this.tabCategory.Size = new System.Drawing.Size(1350, 834);
             this.tabCategory.TabIndex = 0;
             this.tabCategory.SelectedIndexChanged += new System.EventHandler(this.TabCategory_SelectedIndexChanged);
             // 
@@ -75,7 +75,7 @@ namespace MediaDB
             this.tabMovies.Location = new System.Drawing.Point(8, 46);
             this.tabMovies.Name = "tabMovies";
             this.tabMovies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMovies.Size = new System.Drawing.Size(1334, 539);
+            this.tabMovies.Size = new System.Drawing.Size(1334, 780);
             this.tabMovies.TabIndex = 0;
             this.tabMovies.Text = "Movies";
             this.tabMovies.UseVisualStyleBackColor = true;
@@ -86,9 +86,7 @@ namespace MediaDB
             this.cmbMovieSearch.Items.AddRange(new object[] {
             "Title",
             "Director",
-            "Genre",
-            "Rating (Higher Than)",
-            "Rating (Lower Than)"});
+            "Genre"});
             this.cmbMovieSearch.Location = new System.Drawing.Point(371, 30);
             this.cmbMovieSearch.Name = "cmbMovieSearch";
             this.cmbMovieSearch.Size = new System.Drawing.Size(242, 40);
@@ -99,11 +97,11 @@ namespace MediaDB
             this.gridMovies.AllowUserToOrderColumns = true;
             this.gridMovies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.gridMovies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridMovies.Location = new System.Drawing.Point(37, 88);
+            this.gridMovies.Location = new System.Drawing.Point(34, 88);
             this.gridMovies.Name = "gridMovies";
             this.gridMovies.RowHeadersWidth = 82;
             this.gridMovies.RowTemplate.Height = 41;
-            this.gridMovies.Size = new System.Drawing.Size(1266, 424);
+            this.gridMovies.Size = new System.Drawing.Size(1266, 660);
             this.gridMovies.TabIndex = 4;
             // 
             // btnMovieGetAll
@@ -132,6 +130,7 @@ namespace MediaDB
             this.txtMovieSearch.Name = "txtMovieSearch";
             this.txtMovieSearch.Size = new System.Drawing.Size(372, 39);
             this.txtMovieSearch.TabIndex = 1;
+            this.txtMovieSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtMovieSearch_KeyUp);
             // 
             // tabGames
             // 
@@ -142,7 +141,7 @@ namespace MediaDB
             this.tabGames.Controls.Add(this.txtGameSearch);
             this.tabGames.Location = new System.Drawing.Point(8, 46);
             this.tabGames.Name = "tabGames";
-            this.tabGames.Size = new System.Drawing.Size(1334, 539);
+            this.tabGames.Size = new System.Drawing.Size(1334, 780);
             this.tabGames.TabIndex = 2;
             this.tabGames.Text = "Games";
             this.tabGames.UseVisualStyleBackColor = true;
@@ -155,7 +154,7 @@ namespace MediaDB
             "Developer",
             "Platform",
             "Genre"});
-            this.cmbGameSearch.Location = new System.Drawing.Point(368, 28);
+            this.cmbGameSearch.Location = new System.Drawing.Point(371, 30);
             this.cmbGameSearch.Name = "cmbGameSearch";
             this.cmbGameSearch.Size = new System.Drawing.Size(242, 40);
             this.cmbGameSearch.TabIndex = 10;
@@ -165,25 +164,26 @@ namespace MediaDB
             this.gridGames.AllowUserToOrderColumns = true;
             this.gridGames.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.gridGames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridGames.Location = new System.Drawing.Point(34, 86);
+            this.gridGames.Location = new System.Drawing.Point(34, 88);
             this.gridGames.Name = "gridGames";
             this.gridGames.RowHeadersWidth = 82;
             this.gridGames.RowTemplate.Height = 41;
-            this.gridGames.Size = new System.Drawing.Size(1266, 424);
+            this.gridGames.Size = new System.Drawing.Size(1266, 660);
             this.gridGames.TabIndex = 9;
             // 
             // btnGameGetAll
             // 
-            this.btnGameGetAll.Location = new System.Drawing.Point(1150, 28);
+            this.btnGameGetAll.Location = new System.Drawing.Point(1153, 30);
             this.btnGameGetAll.Name = "btnGameGetAll";
             this.btnGameGetAll.Size = new System.Drawing.Size(150, 42);
             this.btnGameGetAll.TabIndex = 8;
             this.btnGameGetAll.Text = "Get All";
             this.btnGameGetAll.UseVisualStyleBackColor = true;
+            this.btnGameGetAll.Click += new System.EventHandler(this.BtnGameGetAll_Click);
             // 
             // btnGameSearch
             // 
-            this.btnGameSearch.Location = new System.Drawing.Point(994, 29);
+            this.btnGameSearch.Location = new System.Drawing.Point(997, 31);
             this.btnGameSearch.Name = "btnGameSearch";
             this.btnGameSearch.Size = new System.Drawing.Size(150, 42);
             this.btnGameSearch.TabIndex = 7;
@@ -193,16 +193,17 @@ namespace MediaDB
             // 
             // txtGameSearch
             // 
-            this.txtGameSearch.Location = new System.Drawing.Point(616, 30);
+            this.txtGameSearch.Location = new System.Drawing.Point(619, 32);
             this.txtGameSearch.Name = "txtGameSearch";
             this.txtGameSearch.Size = new System.Drawing.Size(372, 39);
             this.txtGameSearch.TabIndex = 6;
+            this.txtGameSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtGameSearch_KeyUp);
             // 
             // tabBooks
             // 
             this.tabBooks.Location = new System.Drawing.Point(8, 46);
             this.tabBooks.Name = "tabBooks";
-            this.tabBooks.Size = new System.Drawing.Size(1334, 539);
+            this.tabBooks.Size = new System.Drawing.Size(1334, 780);
             this.tabBooks.TabIndex = 3;
             this.tabBooks.Text = "Books";
             this.tabBooks.UseVisualStyleBackColor = true;
@@ -211,14 +212,14 @@ namespace MediaDB
             // 
             this.tabRecords.Location = new System.Drawing.Point(8, 46);
             this.tabRecords.Name = "tabRecords";
-            this.tabRecords.Size = new System.Drawing.Size(1334, 539);
+            this.tabRecords.Size = new System.Drawing.Size(1334, 780);
             this.tabRecords.TabIndex = 4;
             this.tabRecords.Text = "Records";
             this.tabRecords.UseVisualStyleBackColor = true;
             // 
             // btnEnterNew
             // 
-            this.btnEnterNew.Location = new System.Drawing.Point(1076, 614);
+            this.btnEnterNew.Location = new System.Drawing.Point(1076, 866);
             this.btnEnterNew.Name = "btnEnterNew";
             this.btnEnterNew.Size = new System.Drawing.Size(247, 46);
             this.btnEnterNew.TabIndex = 1;
@@ -230,7 +231,7 @@ namespace MediaDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1374, 684);
+            this.ClientSize = new System.Drawing.Size(1374, 943);
             this.Controls.Add(this.btnEnterNew);
             this.Controls.Add(this.tabCategory);
             this.Name = "FormDbDisplay";

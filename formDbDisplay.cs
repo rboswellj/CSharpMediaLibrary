@@ -18,15 +18,13 @@ namespace MediaDB
         {
             InitializeComponent();
             GetAll("Movies");
+            cmbMovieSearch.SelectedIndex = 0;
+            cmbGameSearch.SelectedIndex = 0;
         }
 
-        public static string LocalPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
-        //public static string Relative = "[DataDirectory]";
+        readonly BindingSource _binder = new BindingSource();
 
-        BindingSource binder = new BindingSource();
-        public static string ConString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" +
-            LocalPath + "\\media.mdf;" + 
-            "Integrated Security = True; Connect Timeout = 30";
+        public static string ConString = Config.ConString;
 
         private void TabCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -129,13 +127,13 @@ namespace MediaDB
                 switch (cat)
                 {
                     case "Movies":
-                        gridMovies.DataSource = binder;
+                        gridMovies.DataSource = _binder;
                         break;
                     case "Games":
-                        gridGames.DataSource = binder;
+                        gridGames.DataSource = _binder;
                         break;
                 }
-                binder.DataSource = dataTable;
+                _binder.DataSource = dataTable;
                 con.Close();
                 con.Close();
             }
@@ -153,21 +151,21 @@ namespace MediaDB
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
-            binder.DataSource = dataTable;
+            _binder.DataSource = dataTable;
             switch (cat)
             {
                 case "Movies":
-                    gridMovies.DataSource = binder;
+                    gridMovies.DataSource = _binder;
                     break;
                 case "Games":
-                    gridGames.DataSource = binder;
+                    gridGames.DataSource = _binder;
                     break;
             }
             
             con.Close();
         }
 
-  
+        // Window Events
         private void BtnEnterNew_Click(object sender, EventArgs e)
         {
             // Opens Input window
@@ -175,8 +173,7 @@ namespace MediaDB
             newInput.Show();
         }
 
-        
-
+        // Movie Tab Events
         private void BtnMovieSearch_Click(object sender, EventArgs e)
         {
             Search("Movies");
@@ -186,11 +183,33 @@ namespace MediaDB
         {
             GetAll("Movies");
         }
+        private void TxtMovieSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Search("Movies");
+            }
+        }
 
+        // Game Tab Events
+        private void BtnGameGetAll_Click(object sender, EventArgs e)
+        {
+            GetAll("Games");
+        }
 
         private void BtnGameSearch_Click(object sender, EventArgs e)
         {
             Search("Games");
         }
+
+        private void TxtGameSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Search("Games");
+            }
+        }
+
+        
     }
 }

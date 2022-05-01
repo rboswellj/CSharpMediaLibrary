@@ -19,16 +19,15 @@ namespace MediaDB
             InitializeComponent();
         }
 
-        public static string LocalPath = "C:\\Users\\Robert\\OneDrive\\Documents\\School\\cSharp2\\MediaDB";
-        //public static string Relative = "[DataDirectory]";
 
-        public static string conString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" +
-            LocalPath + "\\media.mdf;" +
-            "Integrated Security = True; Connect Timeout = 30";
+        public static string ConString = Config.ConString;
 
-        List<Movie> movieList = new List<Movie>();
-        List<Game> gameList = new List<Game>();
-        public string[] movieFields = { "Title", "Year", "Director", "Length", "Rating", "Genre" };
+        List<Movie> MovieList = new List<Movie>();
+        List<Game> GameList = new List<Game>();
+        public string MsgInvalid = "Invalid Entries. Please double check fields";
+        public string MsgCommit = "Changes Committed";
+        public string[] MovieFields = { "Title", "Year", "Director", "Length", "Rating", "Genre" };
+        public string[] GameFields = { "Title", "Year", "Developer", "Platform", "Score", "Genre" };
 
         // Creates new instances of category classes and adds to a list, rather than push
         // individual additions directly to the db. This feels cleaner
@@ -70,49 +69,56 @@ namespace MediaDB
             switch (cat)
             {
                 case "Movies":
-                int seen = chkMovieSeen.Checked ? 1 : 0;
+                    int seen = chkMovieSeen.Checked ? 1 : 0;
 
-                try
-                {
-                    movieList.Add(new Movie(txtMovieTitle.Text, Convert.ToInt32(txtMovieYear.Text), txtMovieDirector.Text,
-                        txtMovieLength.Text, Convert.ToInt32(txtMovieRating.Text), seen, txtMovieGenre.Text));
-                    listBoxAdded.ClearSelected();
-                    listBoxAdded.Items.Clear();
-                    PopulateListBox(movieList);
-                    ClearFields(movieFields, "Movie");
+                    try
+                    {
+                        MovieList.Add(new Movie(txtMovieTitle.Text, Convert.ToInt32(txtMovieYear.Text), txtMovieDirector.Text,
+                            txtMovieLength.Text, Convert.ToInt32(txtMovieRating.Text), seen, txtMovieGenre.Text));
+                        listBoxAdded.ClearSelected();
+                        listBoxAdded.Items.Clear();
+                        PopulateListBox(MovieList);
+                        PopulateListBox(GameList);
+                        ClearFields(MovieFields, "Movie");
 
-                }
-                catch (ValidationException ve)
-                {
-                    //MessageBox.Show(ve.Message);
-                    MessageBox.Show("Invalid Entries. Please double check fields");
-                }
-                catch (Exception err)
-                {
-                    //MessageBox.Show(err.Message);
-                    MessageBox.Show("Invalid Entries. Please double check fields");
-                }
+                    }
+                    catch
+                    {
+                        MessageBox.Show(MsgInvalid);
+                    }
 
-                break;
-
+                    break;
+                case "Games":
+                    int played = chkGamePlayed.Checked ? 1 : 0;
+                    try
+                    {
+                        GameList.Add(new Game(txtGameTitle.Text, Convert.ToInt32(txtGameYear.Text), 
+                            txtGameDeveloper.Text, txtGamePlatform.Text, Convert.ToInt32(txtGameScore.Text), played, txtGameGenre.Text));
+                        listBoxAdded.ClearSelected();
+                        listBoxAdded.Items.Clear();
+                        PopulateListBox(MovieList);
+                        PopulateListBox(GameList);
+                        ClearFields(GameFields, "Game");
+                    }
+                    catch
+                    {
+                        MessageBox.Show(MsgInvalid);
+                    }
+                    break;
             }
 
         }
 
-
-        private void BtnMovieClear_Click(object sender, EventArgs e)
-        {
-            ClearFields(movieFields, "Movie");
-        }
+        // Whole window events
 
         private void BtnEntryCommit_Click(object sender, EventArgs e)
         {
-            foreach (Movie m in movieList)
+            SqlConnection con = new SqlConnection(ConString);
+            con.Open();
+            foreach (Movie m in MovieList)
             {
                 try
                 {
-                    SqlConnection con = new SqlConnection(conString);
-                    con.Open();
                     SqlCommand cmd = new SqlCommand("AddMovie", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@title", m.Title));
@@ -122,23 +128,17 @@ namespace MediaDB
                     cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
                     cmd.Parameters.Add(new SqlParameter("@seen", m.Seen));
                     cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
-
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Updated:");
-
-                    con.Close();
                 }
                 catch(Exception err)
                 {
                     MessageBox.Show(err.Message);
                 }
             }
-            foreach (Game m in gameList)
+            foreach (Game m in GameList)
             {
                 try
                 {
-                    SqlConnection con = new SqlConnection(conString);
-                    con.Open();
                     SqlCommand cmd = new SqlCommand("AddGame", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@title", m.Title));
@@ -148,22 +148,39 @@ namespace MediaDB
                     cmd.Parameters.Add(new SqlParameter("@score", m.Score));
                     cmd.Parameters.Add(new SqlParameter("@played", m.Played));
                     cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
-
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Updated:");
-
-                    con.Close();
                 }
                 catch (Exception err)
                 {
                     MessageBox.Show(err.Message);
                 }
             }
+            listBoxAdded.ClearSelected();
+            listBoxAdded.Items.Clear();
+            con.Close();
+            MessageBox.Show(MsgCommit);
         }
+
+        // Movie Events
 
         private void BtnMovieAdd_Click(object sender, EventArgs e)
         {
             Add("Movies");
+        }
+
+        private void BtnMovieClear_Click(object sender, EventArgs e)
+        {
+            ClearFields(MovieFields, "Movie");
+        }
+
+        private void BtnGameAdd_Click(object sender, EventArgs e)
+        {
+            Add("Games");
+        }
+
+        private void BtnGameClear_Click(object sender, EventArgs e)
+        {
+            ClearFields(GameFields, "Game");
         }
     }
 }

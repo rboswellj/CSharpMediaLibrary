@@ -48,11 +48,8 @@ namespace MediaDB
             this.txtMovieTitle = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabGameInput = new System.Windows.Forms.TabPage();
-            this.listBoxAdded = new System.Windows.Forms.ListBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnEntryCommit = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtGameAdd = new System.Windows.Forms.Button();
+            this.btnGameClear = new System.Windows.Forms.Button();
+            this.btnGameAdd = new System.Windows.Forms.Button();
             this.chkGamePlayed = new System.Windows.Forms.CheckBox();
             this.txtGamePlatform = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -67,6 +64,9 @@ namespace MediaDB
             this.label13 = new System.Windows.Forms.Label();
             this.txtGameTitle = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.listBoxAdded = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnEntryCommit = new System.Windows.Forms.Button();
             this.tabControlInput.SuspendLayout();
             this.tabMovieInput.SuspendLayout();
             this.tabGameInput.SuspendLayout();
@@ -244,8 +244,8 @@ namespace MediaDB
             // 
             // tabGameInput
             // 
-            this.tabGameInput.Controls.Add(this.button1);
-            this.tabGameInput.Controls.Add(this.txtGameAdd);
+            this.tabGameInput.Controls.Add(this.btnGameClear);
+            this.tabGameInput.Controls.Add(this.btnGameAdd);
             this.tabGameInput.Controls.Add(this.chkGamePlayed);
             this.tabGameInput.Controls.Add(this.txtGamePlatform);
             this.tabGameInput.Controls.Add(this.label8);
@@ -267,6 +267,140 @@ namespace MediaDB
             this.tabGameInput.TabIndex = 1;
             this.tabGameInput.Text = "Games";
             this.tabGameInput.UseVisualStyleBackColor = true;
+            // 
+            // btnGameClear
+            // 
+            this.btnGameClear.Location = new System.Drawing.Point(191, 515);
+            this.btnGameClear.Name = "btnGameClear";
+            this.btnGameClear.Size = new System.Drawing.Size(150, 46);
+            this.btnGameClear.TabIndex = 25;
+            this.btnGameClear.Text = "Clear";
+            this.btnGameClear.UseVisualStyleBackColor = true;
+            this.btnGameClear.Click += new System.EventHandler(this.BtnGameClear_Click);
+            // 
+            // btnGameAdd
+            // 
+            this.btnGameAdd.Location = new System.Drawing.Point(17, 515);
+            this.btnGameAdd.Name = "btnGameAdd";
+            this.btnGameAdd.Size = new System.Drawing.Size(150, 46);
+            this.btnGameAdd.TabIndex = 24;
+            this.btnGameAdd.Text = "Add";
+            this.btnGameAdd.UseVisualStyleBackColor = true;
+            this.btnGameAdd.Click += new System.EventHandler(this.BtnGameAdd_Click);
+            // 
+            // chkGamePlayed
+            // 
+            this.chkGamePlayed.AutoSize = true;
+            this.chkGamePlayed.Location = new System.Drawing.Point(248, 435);
+            this.chkGamePlayed.Name = "chkGamePlayed";
+            this.chkGamePlayed.Size = new System.Drawing.Size(127, 36);
+            this.chkGamePlayed.TabIndex = 23;
+            this.chkGamePlayed.Text = "Played?";
+            this.chkGamePlayed.UseVisualStyleBackColor = true;
+            // 
+            // txtGamePlatform
+            // 
+            this.txtGamePlatform.Location = new System.Drawing.Point(248, 241);
+            this.txtGamePlatform.Name = "txtGamePlatform";
+            this.txtGamePlatform.Size = new System.Drawing.Size(200, 39);
+            this.txtGamePlatform.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(248, 206);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(104, 32);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Platform";
+            // 
+            // txtGameScore
+            // 
+            this.txtGameScore.Location = new System.Drawing.Point(17, 435);
+            this.txtGameScore.Name = "txtGameScore";
+            this.txtGameScore.Size = new System.Drawing.Size(200, 39);
+            this.txtGameScore.TabIndex = 22;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(261, 321);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 32);
+            this.label9.TabIndex = 11;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 400);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(135, 32);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Meta Score";
+            // 
+            // txtGameYear
+            // 
+            this.txtGameYear.Location = new System.Drawing.Point(17, 241);
+            this.txtGameYear.Name = "txtGameYear";
+            this.txtGameYear.Size = new System.Drawing.Size(200, 39);
+            this.txtGameYear.TabIndex = 19;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(17, 206);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 32);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Year";
+            // 
+            // txtGameGenre
+            // 
+            this.txtGameGenre.Location = new System.Drawing.Point(17, 336);
+            this.txtGameGenre.Name = "txtGameGenre";
+            this.txtGameGenre.Size = new System.Drawing.Size(431, 39);
+            this.txtGameGenre.TabIndex = 21;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 301);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(78, 32);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Genre";
+            // 
+            // txtGameDeveloper
+            // 
+            this.txtGameDeveloper.Location = new System.Drawing.Point(17, 148);
+            this.txtGameDeveloper.Name = "txtGameDeveloper";
+            this.txtGameDeveloper.Size = new System.Drawing.Size(431, 39);
+            this.txtGameDeveloper.TabIndex = 18;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(17, 113);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(124, 32);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "Developer";
+            // 
+            // txtGameTitle
+            // 
+            this.txtGameTitle.Location = new System.Drawing.Point(17, 57);
+            this.txtGameTitle.Name = "txtGameTitle";
+            this.txtGameTitle.Size = new System.Drawing.Size(431, 39);
+            this.txtGameTitle.TabIndex = 17;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(17, 22);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 32);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Title";
             // 
             // listBoxAdded
             // 
@@ -295,138 +429,6 @@ namespace MediaDB
             this.btnEntryCommit.Text = "Commit";
             this.btnEntryCommit.UseVisualStyleBackColor = true;
             this.btnEntryCommit.Click += new System.EventHandler(this.BtnEntryCommit_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(208, 523);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 46);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Clear";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // txtGameAdd
-            // 
-            this.txtGameAdd.Location = new System.Drawing.Point(34, 523);
-            this.txtGameAdd.Name = "txtGameAdd";
-            this.txtGameAdd.Size = new System.Drawing.Size(150, 46);
-            this.txtGameAdd.TabIndex = 24;
-            this.txtGameAdd.Text = "Add";
-            this.txtGameAdd.UseVisualStyleBackColor = true;
-            // 
-            // chkGamePlayed
-            // 
-            this.chkGamePlayed.AutoSize = true;
-            this.chkGamePlayed.Location = new System.Drawing.Point(265, 443);
-            this.chkGamePlayed.Name = "chkGamePlayed";
-            this.chkGamePlayed.Size = new System.Drawing.Size(127, 36);
-            this.chkGamePlayed.TabIndex = 23;
-            this.chkGamePlayed.Text = "Played?";
-            this.chkGamePlayed.UseVisualStyleBackColor = true;
-            // 
-            // txtGamePlatform
-            // 
-            this.txtGamePlatform.Location = new System.Drawing.Point(265, 249);
-            this.txtGamePlatform.Name = "txtGamePlatform";
-            this.txtGamePlatform.Size = new System.Drawing.Size(200, 39);
-            this.txtGamePlatform.TabIndex = 20;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(265, 214);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(104, 32);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Platform";
-            // 
-            // txtGameScore
-            // 
-            this.txtGameScore.Location = new System.Drawing.Point(34, 443);
-            this.txtGameScore.Name = "txtGameScore";
-            this.txtGameScore.Size = new System.Drawing.Size(200, 39);
-            this.txtGameScore.TabIndex = 22;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(265, 322);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(0, 32);
-            this.label9.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(34, 408);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(135, 32);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Meta Score";
-            // 
-            // txtGameYear
-            // 
-            this.txtGameYear.Location = new System.Drawing.Point(34, 249);
-            this.txtGameYear.Name = "txtGameYear";
-            this.txtGameYear.Size = new System.Drawing.Size(200, 39);
-            this.txtGameYear.TabIndex = 19;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(34, 214);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 32);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Year";
-            // 
-            // txtGameGenre
-            // 
-            this.txtGameGenre.Location = new System.Drawing.Point(34, 344);
-            this.txtGameGenre.Name = "txtGameGenre";
-            this.txtGameGenre.Size = new System.Drawing.Size(431, 39);
-            this.txtGameGenre.TabIndex = 21;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(34, 309);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(78, 32);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Genre";
-            // 
-            // txtGameDeveloper
-            // 
-            this.txtGameDeveloper.Location = new System.Drawing.Point(34, 156);
-            this.txtGameDeveloper.Name = "txtGameDeveloper";
-            this.txtGameDeveloper.Size = new System.Drawing.Size(431, 39);
-            this.txtGameDeveloper.TabIndex = 18;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(34, 121);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(124, 32);
-            this.label13.TabIndex = 15;
-            this.label13.Text = "Developer";
-            // 
-            // txtGameTitle
-            // 
-            this.txtGameTitle.Location = new System.Drawing.Point(34, 65);
-            this.txtGameTitle.Name = "txtGameTitle";
-            this.txtGameTitle.Size = new System.Drawing.Size(431, 39);
-            this.txtGameTitle.TabIndex = 17;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(34, 30);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 32);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "Title";
             // 
             // FormDbInput
             // 
@@ -473,8 +475,8 @@ namespace MediaDB
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnEntryCommit;
         private System.Windows.Forms.Button btnMovieClear;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button txtGameAdd;
+        private System.Windows.Forms.Button btnGameClear;
+        private System.Windows.Forms.Button btnGameAdd;
         private System.Windows.Forms.CheckBox chkGamePlayed;
         private System.Windows.Forms.TextBox txtGamePlatform;
         private System.Windows.Forms.Label label8;
