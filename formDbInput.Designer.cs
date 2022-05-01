@@ -31,6 +31,7 @@ namespace MediaDB
         {
             this.tabControlInput = new System.Windows.Forms.TabControl();
             this.tabMovieInput = new System.Windows.Forms.TabPage();
+            this.btnMovieClear = new System.Windows.Forms.Button();
             this.btnMovieSubmit = new System.Windows.Forms.Button();
             this.chkMovieSeen = new System.Windows.Forms.CheckBox();
             this.txtMovieLength = new System.Windows.Forms.TextBox();
@@ -49,7 +50,7 @@ namespace MediaDB
             this.tabGameInput = new System.Windows.Forms.TabPage();
             this.listBoxAdded = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEntryCommit = new System.Windows.Forms.Button();
             this.tabControlInput.SuspendLayout();
             this.tabMovieInput.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +67,7 @@ namespace MediaDB
             // 
             // tabMovieInput
             // 
+            this.tabMovieInput.Controls.Add(this.btnMovieClear);
             this.tabMovieInput.Controls.Add(this.btnMovieSubmit);
             this.tabMovieInput.Controls.Add(this.chkMovieSeen);
             this.tabMovieInput.Controls.Add(this.txtMovieLength);
@@ -89,12 +91,22 @@ namespace MediaDB
             this.tabMovieInput.Text = "Movies";
             this.tabMovieInput.UseVisualStyleBackColor = true;
             // 
+            // btnMovieClear
+            // 
+            this.btnMovieClear.Location = new System.Drawing.Point(191, 515);
+            this.btnMovieClear.Name = "btnMovieClear";
+            this.btnMovieClear.Size = new System.Drawing.Size(150, 46);
+            this.btnMovieClear.TabIndex = 9;
+            this.btnMovieClear.Text = "Clear";
+            this.btnMovieClear.UseVisualStyleBackColor = true;
+            this.btnMovieClear.Click += new System.EventHandler(this.BtnMovieClear_Click);
+            // 
             // btnMovieSubmit
             // 
             this.btnMovieSubmit.Location = new System.Drawing.Point(17, 515);
             this.btnMovieSubmit.Name = "btnMovieSubmit";
             this.btnMovieSubmit.Size = new System.Drawing.Size(150, 46);
-            this.btnMovieSubmit.TabIndex = 3;
+            this.btnMovieSubmit.TabIndex = 8;
             this.btnMovieSubmit.Text = "Add";
             this.btnMovieSubmit.UseVisualStyleBackColor = true;
             this.btnMovieSubmit.Click += new System.EventHandler(this.BtnMovieSubmit_Click);
@@ -105,7 +117,7 @@ namespace MediaDB
             this.chkMovieSeen.Location = new System.Drawing.Point(248, 435);
             this.chkMovieSeen.Name = "chkMovieSeen";
             this.chkMovieSeen.Size = new System.Drawing.Size(110, 36);
-            this.chkMovieSeen.TabIndex = 2;
+            this.chkMovieSeen.TabIndex = 7;
             this.chkMovieSeen.Text = "Seen?";
             this.chkMovieSeen.UseVisualStyleBackColor = true;
             // 
@@ -114,7 +126,7 @@ namespace MediaDB
             this.txtMovieLength.Location = new System.Drawing.Point(248, 241);
             this.txtMovieLength.Name = "txtMovieLength";
             this.txtMovieLength.Size = new System.Drawing.Size(200, 39);
-            this.txtMovieLength.TabIndex = 1;
+            this.txtMovieLength.TabIndex = 4;
             // 
             // label3
             // 
@@ -130,7 +142,7 @@ namespace MediaDB
             this.txtMovieRating.Location = new System.Drawing.Point(17, 435);
             this.txtMovieRating.Name = "txtMovieRating";
             this.txtMovieRating.Size = new System.Drawing.Size(200, 39);
-            this.txtMovieRating.TabIndex = 1;
+            this.txtMovieRating.TabIndex = 6;
             // 
             // label5
             // 
@@ -154,7 +166,7 @@ namespace MediaDB
             this.txtMovieYear.Location = new System.Drawing.Point(17, 241);
             this.txtMovieYear.Name = "txtMovieYear";
             this.txtMovieYear.Size = new System.Drawing.Size(200, 39);
-            this.txtMovieYear.TabIndex = 1;
+            this.txtMovieYear.TabIndex = 3;
             // 
             // lbl
             // 
@@ -170,7 +182,7 @@ namespace MediaDB
             this.txtMovieGenre.Location = new System.Drawing.Point(17, 336);
             this.txtMovieGenre.Name = "txtMovieGenre";
             this.txtMovieGenre.Size = new System.Drawing.Size(431, 39);
-            this.txtMovieGenre.TabIndex = 1;
+            this.txtMovieGenre.TabIndex = 5;
             // 
             // label6
             // 
@@ -186,7 +198,7 @@ namespace MediaDB
             this.txtMovieDirector.Location = new System.Drawing.Point(17, 148);
             this.txtMovieDirector.Name = "txtMovieDirector";
             this.txtMovieDirector.Size = new System.Drawing.Size(431, 39);
-            this.txtMovieDirector.TabIndex = 1;
+            this.txtMovieDirector.TabIndex = 2;
             // 
             // label2
             // 
@@ -241,21 +253,22 @@ namespace MediaDB
             this.label7.TabIndex = 5;
             this.label7.Text = "Added";
             // 
-            // button1
+            // btnEntryCommit
             // 
-            this.button1.Location = new System.Drawing.Point(549, 611);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 46);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Commit";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnEntryCommit.Location = new System.Drawing.Point(549, 611);
+            this.btnEntryCommit.Name = "btnEntryCommit";
+            this.btnEntryCommit.Size = new System.Drawing.Size(150, 46);
+            this.btnEntryCommit.TabIndex = 6;
+            this.btnEntryCommit.Text = "Commit";
+            this.btnEntryCommit.UseVisualStyleBackColor = true;
+            this.btnEntryCommit.Click += new System.EventHandler(this.BtnEntryCommit_Click);
             // 
             // FormDbInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 696);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnEntryCommit);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.listBoxAdded);
             this.Controls.Add(this.tabControlInput);
@@ -291,6 +304,7 @@ namespace MediaDB
         private System.Windows.Forms.Button btnMovieSubmit;
         private System.Windows.Forms.ListBox listBoxAdded;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEntryCommit;
+        private System.Windows.Forms.Button btnMovieClear;
     }
 }

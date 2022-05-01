@@ -31,25 +31,30 @@ namespace MovieDB
         {
             this.tabCategory = new System.Windows.Forms.TabControl();
             this.tabMovies = new System.Windows.Forms.TabPage();
-            this.cmbSearch = new System.Windows.Forms.ComboBox();
+            this.cmbMovieSearch = new System.Windows.Forms.ComboBox();
             this.gridMovies = new System.Windows.Forms.DataGridView();
-            this.btnGetAll = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.tabShows = new System.Windows.Forms.TabPage();
+            this.btnMovieGetAll = new System.Windows.Forms.Button();
+            this.btnMovieSearch = new System.Windows.Forms.Button();
+            this.txtMovieSearch = new System.Windows.Forms.TextBox();
             this.tabGames = new System.Windows.Forms.TabPage();
+            this.cmbGameSearch = new System.Windows.Forms.ComboBox();
+            this.gridGames = new System.Windows.Forms.DataGridView();
+            this.btnGameGetAll = new System.Windows.Forms.Button();
+            this.btnGameSearch = new System.Windows.Forms.Button();
+            this.txtGameSearch = new System.Windows.Forms.TextBox();
             this.tabBooks = new System.Windows.Forms.TabPage();
             this.tabRecords = new System.Windows.Forms.TabPage();
             this.btnEnterNew = new System.Windows.Forms.Button();
             this.tabCategory.SuspendLayout();
             this.tabMovies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridMovies)).BeginInit();
+            this.tabGames.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridGames)).BeginInit();
             this.SuspendLayout();
             // 
             // tabCategory
             // 
             this.tabCategory.Controls.Add(this.tabMovies);
-            this.tabCategory.Controls.Add(this.tabShows);
             this.tabCategory.Controls.Add(this.tabGames);
             this.tabCategory.Controls.Add(this.tabBooks);
             this.tabCategory.Controls.Add(this.tabRecords);
@@ -61,11 +66,11 @@ namespace MovieDB
             // 
             // tabMovies
             // 
-            this.tabMovies.Controls.Add(this.cmbSearch);
+            this.tabMovies.Controls.Add(this.cmbMovieSearch);
             this.tabMovies.Controls.Add(this.gridMovies);
-            this.tabMovies.Controls.Add(this.btnGetAll);
-            this.tabMovies.Controls.Add(this.btnSearch);
-            this.tabMovies.Controls.Add(this.txtSearch);
+            this.tabMovies.Controls.Add(this.btnMovieGetAll);
+            this.tabMovies.Controls.Add(this.btnMovieSearch);
+            this.tabMovies.Controls.Add(this.txtMovieSearch);
             this.tabMovies.Location = new System.Drawing.Point(8, 46);
             this.tabMovies.Name = "tabMovies";
             this.tabMovies.Padding = new System.Windows.Forms.Padding(3);
@@ -74,23 +79,24 @@ namespace MovieDB
             this.tabMovies.Text = "Movies";
             this.tabMovies.UseVisualStyleBackColor = true;
             // 
-            // cmbSearch
+            // cmbMovieSearch
             // 
-            this.cmbSearch.FormattingEnabled = true;
-            this.cmbSearch.Items.AddRange(new object[] {
+            this.cmbMovieSearch.FormattingEnabled = true;
+            this.cmbMovieSearch.Items.AddRange(new object[] {
             "Title",
             "Director",
             "Genre",
             "Rating (Higher Than)",
             "Rating (Lower Than)"});
-            this.cmbSearch.Location = new System.Drawing.Point(371, 30);
-            this.cmbSearch.Name = "cmbSearch";
-            this.cmbSearch.Size = new System.Drawing.Size(242, 40);
-            this.cmbSearch.TabIndex = 5;
+            this.cmbMovieSearch.Location = new System.Drawing.Point(371, 30);
+            this.cmbMovieSearch.Name = "cmbMovieSearch";
+            this.cmbMovieSearch.Size = new System.Drawing.Size(242, 40);
+            this.cmbMovieSearch.TabIndex = 5;
             // 
             // gridMovies
             // 
             this.gridMovies.AllowUserToOrderColumns = true;
+            this.gridMovies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.gridMovies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridMovies.Location = new System.Drawing.Point(37, 88);
             this.gridMovies.Name = "gridMovies";
@@ -99,58 +105,102 @@ namespace MovieDB
             this.gridMovies.Size = new System.Drawing.Size(1266, 424);
             this.gridMovies.TabIndex = 4;
             // 
-            // btnGetAll
+            // btnMovieGetAll
             // 
-            this.btnGetAll.Location = new System.Drawing.Point(1153, 30);
-            this.btnGetAll.Name = "btnGetAll";
-            this.btnGetAll.Size = new System.Drawing.Size(150, 42);
-            this.btnGetAll.TabIndex = 3;
-            this.btnGetAll.Text = "Get All";
-            this.btnGetAll.UseVisualStyleBackColor = true;
-            this.btnGetAll.Click += new System.EventHandler(this.BtnGetAll_Click);
+            this.btnMovieGetAll.Location = new System.Drawing.Point(1153, 30);
+            this.btnMovieGetAll.Name = "btnMovieGetAll";
+            this.btnMovieGetAll.Size = new System.Drawing.Size(150, 42);
+            this.btnMovieGetAll.TabIndex = 3;
+            this.btnMovieGetAll.Text = "Get All";
+            this.btnMovieGetAll.UseVisualStyleBackColor = true;
+            this.btnMovieGetAll.Click += new System.EventHandler(this.BtnMovieGetAll_Click);
             // 
-            // btnSearch
+            // btnMovieSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(997, 31);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(150, 42);
-            this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
+            this.btnMovieSearch.Location = new System.Drawing.Point(997, 31);
+            this.btnMovieSearch.Name = "btnMovieSearch";
+            this.btnMovieSearch.Size = new System.Drawing.Size(150, 42);
+            this.btnMovieSearch.TabIndex = 2;
+            this.btnMovieSearch.Text = "Search";
+            this.btnMovieSearch.UseVisualStyleBackColor = true;
+            this.btnMovieSearch.Click += new System.EventHandler(this.BtnMovieSearch_Click);
             // 
-            // txtSearch
+            // txtMovieSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(619, 32);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(372, 39);
-            this.txtSearch.TabIndex = 1;
-            this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtSearch_KeyUp);
-            // 
-            // tabShows
-            // 
-            this.tabShows.Location = new System.Drawing.Point(8, 46);
-            this.tabShows.Name = "tabShows";
-            this.tabShows.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShows.Size = new System.Drawing.Size(1334, 764);
-            this.tabShows.TabIndex = 1;
-            this.tabShows.Text = "Shows";
-            this.tabShows.UseVisualStyleBackColor = true;
+            this.txtMovieSearch.Location = new System.Drawing.Point(619, 32);
+            this.txtMovieSearch.Name = "txtMovieSearch";
+            this.txtMovieSearch.Size = new System.Drawing.Size(372, 39);
+            this.txtMovieSearch.TabIndex = 1;
             // 
             // tabGames
             // 
+            this.tabGames.Controls.Add(this.cmbGameSearch);
+            this.tabGames.Controls.Add(this.gridGames);
+            this.tabGames.Controls.Add(this.btnGameGetAll);
+            this.tabGames.Controls.Add(this.btnGameSearch);
+            this.tabGames.Controls.Add(this.txtGameSearch);
             this.tabGames.Location = new System.Drawing.Point(8, 46);
             this.tabGames.Name = "tabGames";
-            this.tabGames.Size = new System.Drawing.Size(1334, 764);
+            this.tabGames.Size = new System.Drawing.Size(1334, 539);
             this.tabGames.TabIndex = 2;
             this.tabGames.Text = "Games";
             this.tabGames.UseVisualStyleBackColor = true;
+            // 
+            // cmbGameSearch
+            // 
+            this.cmbGameSearch.FormattingEnabled = true;
+            this.cmbGameSearch.Items.AddRange(new object[] {
+            "Title",
+            "Developer",
+            "Platform",
+            "Genre"});
+            this.cmbGameSearch.Location = new System.Drawing.Point(368, 28);
+            this.cmbGameSearch.Name = "cmbGameSearch";
+            this.cmbGameSearch.Size = new System.Drawing.Size(242, 40);
+            this.cmbGameSearch.TabIndex = 10;
+            // 
+            // gridGames
+            // 
+            this.gridGames.AllowUserToOrderColumns = true;
+            this.gridGames.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.gridGames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridGames.Location = new System.Drawing.Point(34, 86);
+            this.gridGames.Name = "gridGames";
+            this.gridGames.RowHeadersWidth = 82;
+            this.gridGames.RowTemplate.Height = 41;
+            this.gridGames.Size = new System.Drawing.Size(1266, 424);
+            this.gridGames.TabIndex = 9;
+            // 
+            // btnGameGetAll
+            // 
+            this.btnGameGetAll.Location = new System.Drawing.Point(1150, 28);
+            this.btnGameGetAll.Name = "btnGameGetAll";
+            this.btnGameGetAll.Size = new System.Drawing.Size(150, 42);
+            this.btnGameGetAll.TabIndex = 8;
+            this.btnGameGetAll.Text = "Get All";
+            this.btnGameGetAll.UseVisualStyleBackColor = true;
+            // 
+            // btnGameSearch
+            // 
+            this.btnGameSearch.Location = new System.Drawing.Point(994, 29);
+            this.btnGameSearch.Name = "btnGameSearch";
+            this.btnGameSearch.Size = new System.Drawing.Size(150, 42);
+            this.btnGameSearch.TabIndex = 7;
+            this.btnGameSearch.Text = "Search";
+            this.btnGameSearch.UseVisualStyleBackColor = true;
+            // 
+            // txtGameSearch
+            // 
+            this.txtGameSearch.Location = new System.Drawing.Point(616, 30);
+            this.txtGameSearch.Name = "txtGameSearch";
+            this.txtGameSearch.Size = new System.Drawing.Size(372, 39);
+            this.txtGameSearch.TabIndex = 6;
             // 
             // tabBooks
             // 
             this.tabBooks.Location = new System.Drawing.Point(8, 46);
             this.tabBooks.Name = "tabBooks";
-            this.tabBooks.Size = new System.Drawing.Size(1334, 764);
+            this.tabBooks.Size = new System.Drawing.Size(1334, 539);
             this.tabBooks.TabIndex = 3;
             this.tabBooks.Text = "Books";
             this.tabBooks.UseVisualStyleBackColor = true;
@@ -159,7 +209,7 @@ namespace MovieDB
             // 
             this.tabRecords.Location = new System.Drawing.Point(8, 46);
             this.tabRecords.Name = "tabRecords";
-            this.tabRecords.Size = new System.Drawing.Size(1334, 764);
+            this.tabRecords.Size = new System.Drawing.Size(1334, 539);
             this.tabRecords.TabIndex = 4;
             this.tabRecords.Text = "Records";
             this.tabRecords.UseVisualStyleBackColor = true;
@@ -174,19 +224,22 @@ namespace MovieDB
             this.btnEnterNew.UseVisualStyleBackColor = true;
             this.btnEnterNew.Click += new System.EventHandler(this.BtnEnterNew_Click);
             // 
-            // formDbDisplay
+            // FormDbDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1374, 684);
             this.Controls.Add(this.btnEnterNew);
             this.Controls.Add(this.tabCategory);
-            this.Name = "formDbDisplay";
+            this.Name = "FormDbDisplay";
             this.Text = "Robert Johnson\'s Media Library";
             this.tabCategory.ResumeLayout(false);
             this.tabMovies.ResumeLayout(false);
             this.tabMovies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridMovies)).EndInit();
+            this.tabGames.ResumeLayout(false);
+            this.tabGames.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridGames)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -195,16 +248,20 @@ namespace MovieDB
 
         private System.Windows.Forms.TabControl tabCategory;
         private System.Windows.Forms.TabPage tabMovies;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.TabPage tabShows;
+        private System.Windows.Forms.TextBox txtMovieSearch;
         private System.Windows.Forms.TabPage tabGames;
         private System.Windows.Forms.TabPage tabBooks;
         private System.Windows.Forms.TabPage tabRecords;
-        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnMovieSearch;
         private System.Windows.Forms.DataGridView gridMovies;
-        private System.Windows.Forms.Button btnGetAll;
-        private System.Windows.Forms.ComboBox cmbSearch;
+        private System.Windows.Forms.Button btnMovieGetAll;
+        private System.Windows.Forms.ComboBox cmbMovieSearch;
         private System.Windows.Forms.Button btnEnterNew;
+        private System.Windows.Forms.ComboBox cmbGameSearch;
+        private System.Windows.Forms.DataGridView gridGames;
+        private System.Windows.Forms.Button btnGameGetAll;
+        private System.Windows.Forms.Button btnGameSearch;
+        private System.Windows.Forms.TextBox txtGameSearch;
     }
 }
 
