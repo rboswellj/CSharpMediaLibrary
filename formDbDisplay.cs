@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using MediaDB;
 
 namespace MediaDB
 {
     public partial class FormDbDisplay : Form
     {
+        //Todo: Add Remove option for listBox items before committing.
         public FormDbDisplay()
         {
             InitializeComponent();
@@ -24,7 +25,8 @@ namespace MediaDB
         }
 
         readonly BindingSource _binder = new BindingSource();
-        public static string ConString = Config.ConString;
+        //public static string ConString = Config.ConString;
+        public static string ConString = Properties.Settings.Default.mDB;
         public static Movie selectedMovie;
         public static int selectedMovieID;
         public static Game selectedGame;
@@ -43,7 +45,7 @@ namespace MediaDB
             gridMovies.Columns[6].Width = 80;
             gridMovies.Columns[7].Width = 70;
         }
-        private void GridGamesFormat()
+        private void GridGameFormat()
         {
             // Changing width on data grid cells, since the auto sizing is a nightmare
             gridGames.Columns[0].Width = 70;
@@ -149,13 +151,14 @@ namespace MediaDB
                 {
                     case "Movies":
                         gridMovies.DataSource = _binder;
+                        GridMovieFormat();
                         break;
                     case "Games":
                         gridGames.DataSource = _binder;
+                        GridGameFormat();
                         break;
                 }
                 _binder.DataSource = dataTable;
-                con.Close();
                 con.Close();
             }
             catch (Exception ex)
@@ -181,7 +184,7 @@ namespace MediaDB
                     break;
                 case "Games":
                     gridGames.DataSource = _binder;
-                    GridGamesFormat();
+                    GridGameFormat();
                     break;
             }
             
