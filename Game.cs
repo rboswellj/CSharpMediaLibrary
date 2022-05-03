@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MediaDB
 {
@@ -11,7 +10,7 @@ namespace MediaDB
             Title = inTitle;
             Year = inYear;
             Developer = inDeveloper;
-            Platform = inPlatform; 
+            Platform = inPlatform;
             Score = inScore;
             Played = inPlayed;
             Genre = inGenre;

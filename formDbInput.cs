@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.ComponentModel.DataAnnotations;
-using MediaDB;
-using Microsoft.Data.SqlClient;
 
 
 namespace MediaDB
@@ -20,8 +15,7 @@ namespace MediaDB
             InitializeComponent();
         }
 
-        public static string ConString = Config.ConString;
-
+        public static string ConString = Properties.Settings.Default.mDB;
         List<Movie> MovieList = new List<Movie>();
         List<Game> GameList = new List<Game>();
         public static string MsgInvalid = "Invalid Entries. Please double check fields";
@@ -79,11 +73,11 @@ namespace MediaDB
                         try
                         {
                             MovieList.Add(new Movie(
-                                txtMovieTitle.Text, 
-                                Convert.ToInt32(txtMovieYear.Text), 
-                                txtMovieDirector.Text, 
-                                txtMovieLength.Text, 
-                                Convert.ToInt32(txtMovieRating.Text), 
+                                txtMovieTitle.Text,
+                                Convert.ToInt32(txtMovieYear.Text),
+                                txtMovieDirector.Text,
+                                txtMovieLength.Text,
+                                Convert.ToInt32(txtMovieRating.Text),
                                 seen, txtMovieGenre.Text
                             ));
                             listBoxAdded.ClearSelected();
@@ -98,7 +92,7 @@ namespace MediaDB
                             MessageBox.Show(MsgInvalid);
                         }
 
-                    } 
+                    }
                     else
                     {
                         var selectedMovie = MovieList.FirstOrDefault(
@@ -117,7 +111,7 @@ namespace MediaDB
                         ClearFields(MovieFields, "Movie");
                     }
                     break;
-                    
+
                 case "Games":
                     int played = chkGamePlayed.Checked ? 1 : 0;
                     if (!listBoxAdded.Items.Contains("G: " + txtGameTitle.Text))
@@ -169,9 +163,9 @@ namespace MediaDB
 
         private void BtnEntryCommit_Click(object sender, EventArgs e)
         {
-            var confirmed = MessageBox.Show("Are you sure you want to commit these items?", 
+            var confirmed = MessageBox.Show("Are you sure you want to commit these items?",
                 "Confirm", MessageBoxButtons.YesNo);
-            if(confirmed == DialogResult.Yes)
+            if (confirmed == DialogResult.Yes)
             {
                 SqlConnection con = new SqlConnection(ConString);
                 con.Open();
@@ -220,8 +214,8 @@ namespace MediaDB
                 con.Close();
                 this.Close();
             }
-            
-            
+
+
         }
 
         // Movie Events
@@ -294,10 +288,13 @@ namespace MediaDB
                     }
 
                 }
-                }
-                catch (Exception err) { }
-
             }
+            catch (Exception err) 
+            {
+                MessageBox.Show(err.Message);
+            }
+
         }
     }
+}
 

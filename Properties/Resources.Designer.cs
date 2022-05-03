@@ -59,15 +59,5 @@ namespace MediaDB.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] media {
-            get {
-                object obj = ResourceManager.GetObject("media", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

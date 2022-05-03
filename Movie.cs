@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 namespace MediaDB
@@ -21,7 +19,7 @@ namespace MediaDB
         [Required, RegularExpression("/^[A-Za-z]+$/")]
         public string Genre { get; set; }
 
-        public Movie(string inTitle, int inYear, string inDirector, 
+        public Movie(string inTitle, int inYear, string inDirector,
             string inLength, int inRating, int inSeen, string inGenre)
         {
             Title = inTitle;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MediaDB
+﻿namespace MediaDB
 {
     static class Config
     {

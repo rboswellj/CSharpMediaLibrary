@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using MediaDB;
 
 namespace MediaDB
 {
@@ -19,9 +12,9 @@ namespace MediaDB
         {
             InitializeComponent();
             GetAll("Movies");
-            
+
             cmbMovieSearch.SelectedIndex = 0;
-            cmbGameSearch.SelectedIndex = 0;   
+            cmbGameSearch.SelectedIndex = 0;
         }
 
         readonly BindingSource _binder = new BindingSource();
@@ -169,26 +162,34 @@ namespace MediaDB
 
         public void GetAll(string cat)
         {
-            SqlConnection con = new SqlConnection(ConString);
-            con.Open();
-            SqlCommand cmd = new SqlCommand("getAll" + cat, con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dataTable = new DataTable();
-            adapter.Fill(dataTable);
-            _binder.DataSource = dataTable;
-            switch (cat)
+            try
             {
-                case "Movies":
-                    gridMovies.DataSource = _binder;
-                    GridMovieFormat();
-                    break;
-                case "Games":
-                    gridGames.DataSource = _binder;
-                    GridGameFormat();
-                    break;
+                SqlConnection con = new SqlConnection(ConString);
+                con.Open();
+                SqlCommand cmd = new SqlCommand("getAll" + cat, con);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                _binder.DataSource = dataTable;
+                switch (cat)
+                {
+                    case "Movies":
+                        gridMovies.DataSource = _binder;
+                        GridMovieFormat();
+                        break;
+                    case "Games":
+                        gridGames.DataSource = _binder;
+                        GridGameFormat();
+                        break;
+                }
+
+                con.Close();
             }
-            
-            con.Close();
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+
         }
 
 
@@ -257,7 +258,7 @@ namespace MediaDB
             newUpdateMovie.FormClosed += new FormClosedEventHandler(UpdateMovieClosed);
         }
 
-        private void UpdateMovieClosed (object sender, FormClosedEventArgs e)
+        private void UpdateMovieClosed(object sender, FormClosedEventArgs e)
         {
             // Refresh Movie table after update
             GetAll("Movies");
@@ -293,7 +294,7 @@ namespace MediaDB
                 Convert.ToInt32(row.Cells[5].Value.ToString()),
                 Convert.ToInt32(row.Cells[6].Value.ToString()),
                 row.Cells[7].Value.ToString()
-                
+
             );
             FormDbUpdateGame newUpdateGame = new FormDbUpdateGame();
             newUpdateGame.Show();
