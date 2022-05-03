@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MediaDB
 {
+    // Uses Data Annotations to confirm that set operations are the correct type
+    // Causes exception if not validated, which needs to be caught in the create/update operations.
     public class Movie
     {
         [Required]

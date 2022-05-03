@@ -7,7 +7,7 @@ namespace MediaDB
 {
     public partial class FormDbDisplay : Form
     {
-        //Todo: Add Remove option for listBox items before committing.
+        
         public FormDbDisplay()
         {
             InitializeComponent();
@@ -69,11 +69,9 @@ namespace MediaDB
                     searchCat = cmbMovieSearch.Text;
                     searchStr = txtMovieSearch.Text;
                     // Category of search in combo box dictates procedure and params
-                    //MessageBox.Show("Searching Movies");
                     switch (searchCat)
                     {
                         case "Title":
-                            //MessageBox.Show("Searching Title");
                             procedure = "GetMovieByTitle";
                             param = "@title";
                             break;
@@ -86,14 +84,12 @@ namespace MediaDB
                             param = "@director";
                             break;
                         default:
-                            //MessageBox.Show("Searching Title");
                             procedure = "GetMovieByTitle";
                             param = "@title";
                             break;
                     }
                     break;
                 case "Games":
-                    //MessageBox.Show("Searching Games");
                     searchCat = cmbGameSearch.Text;
                     searchStr = txtGameSearch.Text;
                     // Category of search in combo box dictates procedure and params
@@ -126,12 +122,8 @@ namespace MediaDB
 
             try
             {
-                //MessageBox.Show("Sql Connection Starting");
-                //MessageBox.Show($"Procedure {procedure}");
-                //MessageBox.Show($"param {param}");
-                //MessageBox.Show($"Cat {searchCat}");
-                //MessageBox.Show($"String {searchStr}");
-
+                // Query runs on SQL DB using the procedures and parameters determined by
+                // The above switch statements.
                 SqlConnection con = new SqlConnection(ConString);
                 con.Open();
                 SqlCommand cmd = new SqlCommand(procedure, con);
@@ -162,6 +154,7 @@ namespace MediaDB
 
         public void GetAll(string cat)
         {
+            // Retrieves all entries for respective DB
             try
             {
                 SqlConnection con = new SqlConnection(ConString);
@@ -243,6 +236,12 @@ namespace MediaDB
 
         private void GridMovies_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Collects all info for a row item that is double clicked
+            // Loads this data into a new Movie Object
+            // Then opens the update window. The update window
+            // Collects the data from this selected movie instance
+            // And uses it to populate the fields in the update window
+
             DataGridViewRow row = gridMovies.Rows[e.RowIndex];
             selectedMovieID = Convert.ToInt32(row.Cells[0].Value.ToString());
             selectedMovie = new Movie(row.Cells[1].Value.ToString(),
@@ -277,6 +276,7 @@ namespace MediaDB
 
         private void TxtGameSearch_KeyUp(object sender, KeyEventArgs e)
         {
+            // Runs search on enter key press while txt box selected
             if (e.KeyCode == Keys.Enter)
             {
                 Search("Games");
@@ -285,6 +285,12 @@ namespace MediaDB
 
         private void GridGames_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Collects all info for a row item that is double clicked
+            // Loads this data into a new Game Object
+            // Then opens the update window. The update window
+            // Collects the data from this selected game instance
+            // And uses it to populate the fields in the update window
+
             DataGridViewRow row = gridMovies.Rows[e.RowIndex];
             selectedGameID = Convert.ToInt32(row.Cells[0].Value.ToString());
             selectedGame = new Game(row.Cells[1].Value.ToString(),

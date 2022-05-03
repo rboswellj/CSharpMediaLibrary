@@ -4,6 +4,8 @@ namespace MediaDB
 {
     public class Game
     {
+        // Uses Data Annotations to confirm that set operations are the correct type
+        // Causes exception if not validated, which needs to be caught in the create/update operations.
         public Game(string inTitle, int inYear, string inDeveloper,
             string inPlatform, int inScore, int inPlayed, string inGenre)
         {

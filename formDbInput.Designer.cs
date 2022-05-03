@@ -67,6 +67,7 @@ namespace MediaDB
             this.listBoxAdded = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnEntryCommit = new System.Windows.Forms.Button();
+            this.btnEntryRemove = new System.Windows.Forms.Button();
             this.tabControlInput.SuspendLayout();
             this.tabMovieInput.SuspendLayout();
             this.tabGameInput.SuspendLayout();
@@ -431,11 +432,22 @@ namespace MediaDB
             this.btnEntryCommit.UseVisualStyleBackColor = true;
             this.btnEntryCommit.Click += new System.EventHandler(this.BtnEntryCommit_Click);
             // 
+            // btnEntryRemove
+            // 
+            this.btnEntryRemove.Location = new System.Drawing.Point(705, 611);
+            this.btnEntryRemove.Name = "btnEntryRemove";
+            this.btnEntryRemove.Size = new System.Drawing.Size(247, 46);
+            this.btnEntryRemove.TabIndex = 7;
+            this.btnEntryRemove.Text = "Remove Selected";
+            this.btnEntryRemove.UseVisualStyleBackColor = true;
+            this.btnEntryRemove.Click += new System.EventHandler(this.BtnEntryRemove_Click);
+            // 
             // FormDbInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 696);
+            this.Controls.Add(this.btnEntryRemove);
             this.Controls.Add(this.btnEntryCommit);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.listBoxAdded);
@@ -492,5 +504,6 @@ namespace MediaDB
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtGameTitle;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnEntryRemove;
     }
 }

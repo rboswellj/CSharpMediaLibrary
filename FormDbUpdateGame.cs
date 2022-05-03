@@ -14,12 +14,13 @@ namespace MediaDB
         }
 
         Game g = FormDbDisplay.selectedGame;
-        public bool deleteConfirm = false;
         public static string ConString = Properties.Settings.Default.mDB;
 
 
         private void FillFields()
         {
+            // Pulls in the instanced object created by the double
+            // click event in data grid of the display.
             txtGameTitle.Text = g.Title;
             txtGameDeveloper.Text = g.Developer;
             txtGamePlatform.Text = g.Platform;
@@ -47,38 +48,41 @@ namespace MediaDB
                 g.Score = Convert.ToInt32(txtGameScore.Text);
                 g.Genre = txtGameGenre.Text;
                 g.Played = chkGamePlayed.Checked ? 1 : 0;
+                try
+                {
+                    // If the movie object is created successfully then we push changes to the DB
+                    SqlConnection con = new SqlConnection(ConString);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("UpdateGame", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@id", FormDbDisplay.selectedGameID));
+                    cmd.Parameters.Add(new SqlParameter("@title", g.Title));
+                    cmd.Parameters.Add(new SqlParameter("@year", g.Year));
+                    cmd.Parameters.Add(new SqlParameter("@developer", g.Developer));
+                    cmd.Parameters.Add(new SqlParameter("@platform", g.Platform));
+                    cmd.Parameters.Add(new SqlParameter("@score", g.Score));
+                    cmd.Parameters.Add(new SqlParameter("@played", g.Played));
+                    cmd.Parameters.Add(new SqlParameter("@genre", g.Genre));
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    this.Close();
+
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
             }
             catch
             {
                 MessageBox.Show(FormDbInput.MsgInvalid);
             }
-            try
-            {
-                SqlConnection con = new SqlConnection(ConString);
-                con.Open();
-                SqlCommand cmd = new SqlCommand("UpdateGame", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@id", FormDbDisplay.selectedGameID));
-                cmd.Parameters.Add(new SqlParameter("@title", g.Title));
-                cmd.Parameters.Add(new SqlParameter("@year", g.Year));
-                cmd.Parameters.Add(new SqlParameter("@developer", g.Developer));
-                cmd.Parameters.Add(new SqlParameter("@platform", g.Platform));
-                cmd.Parameters.Add(new SqlParameter("@score", g.Score));
-                cmd.Parameters.Add(new SqlParameter("@played", g.Played));
-                cmd.Parameters.Add(new SqlParameter("@genre", g.Genre));
-                cmd.ExecuteNonQuery();
-                con.Close();
-                this.Close();
-
-            }
-            catch(Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
+            
         }
 
         private void BtnGameDelete_Click(object sender, EventArgs e)
         {
+            // Confirms action before deleting items from DB
             var confirmed = MessageBox.Show("Are You Sure You Want To Delete?", "Confirm", MessageBoxButtons.YesNo);
             if (confirmed == DialogResult.Yes)
             {

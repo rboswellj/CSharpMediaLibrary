@@ -19,6 +19,8 @@ namespace MediaDB
 
         private void FillFields()
         {
+            // Pulls in the instanced object created by the double
+            // click event in data grid of the display.
             txtMovieTitle.Text = m.Title;
             txtMovieDirector.Text = m.Director;
             txtMovieLength.Text = m.Length.ToString();
@@ -47,38 +49,41 @@ namespace MediaDB
                 m.Rating = Convert.ToInt32(txtMovieRating.Text);
                 m.Genre = txtMovieGenre.Text;
                 m.Seen = chkMovieSeen.Checked ? 1 : 0;
+                try
+                {
+                    // If object updates successfully then data is pushed to DB
+                    SqlConnection con = new SqlConnection(ConString);
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("UpdateMovie", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@id", FormDbDisplay.selectedMovieID));
+                    cmd.Parameters.Add(new SqlParameter("@title", m.Title));
+                    cmd.Parameters.Add(new SqlParameter("@year", m.Year));
+                    cmd.Parameters.Add(new SqlParameter("@director", m.Director));
+                    cmd.Parameters.Add(new SqlParameter("@length", m.Length));
+                    cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
+                    cmd.Parameters.Add(new SqlParameter("@seen", m.Seen));
+                    cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    this.Close();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
             }
             catch
             {
                 MessageBox.Show(FormDbInput.MsgInvalid);
             }
-            try
-            {
-                SqlConnection con = new SqlConnection(ConString);
-                con.Open();
-                SqlCommand cmd = new SqlCommand("UpdateMovie", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@id", FormDbDisplay.selectedMovieID));
-                cmd.Parameters.Add(new SqlParameter("@title", m.Title));
-                cmd.Parameters.Add(new SqlParameter("@year", m.Year));
-                cmd.Parameters.Add(new SqlParameter("@director", m.Director));
-                cmd.Parameters.Add(new SqlParameter("@length", m.Length));
-                cmd.Parameters.Add(new SqlParameter("@rating", m.Rating));
-                cmd.Parameters.Add(new SqlParameter("@seen", m.Seen));
-                cmd.Parameters.Add(new SqlParameter("@genre", m.Genre));
-                cmd.ExecuteNonQuery();
-                con.Close();
-                this.Close();
-            }
-            catch(Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
+            
             
         }
 
         private void BtnMovieDelete_Click(object sender, EventArgs e)
         {
+            // Confirms action before deleting from DB
             var confirmed = MessageBox.Show("Are You Sure You Want To Delete?", "Confirm", MessageBoxButtons.YesNo);
             if (confirmed == DialogResult.Yes)
             {

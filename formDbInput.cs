@@ -27,11 +27,14 @@ namespace MediaDB
         // individual additions directly to the db. This feels cleaner
         // Because you only make one DB call for the whole input operation
         // Adds new objects into a list box so they can be inspected before commiting
+        
+        // Overloaded method to add contents of Movie and Game lists to listbox
+        // Called after add or remove. follows a clear so entries don't appear more than once.
         private void PopulateListBox(List<Movie> list)
         {
             foreach (Movie m in list)
             {
-                listBoxAdded.Items.Add("M: " + m.Title);
+                listBoxAdded.Items.Add($"M {m.Year}: {m.Title}");
             }
         }
 
@@ -39,7 +42,7 @@ namespace MediaDB
         {
             foreach (Game g in list)
             {
-                listBoxAdded.Items.Add("G: " + g.Title);
+                listBoxAdded.Items.Add($"G {g.Year}: {g.Title}");
             }
         }
 
@@ -68,7 +71,7 @@ namespace MediaDB
                     int seen = chkMovieSeen.Checked ? 1 : 0;
                     // Check to see if we are updating an item already in the list,
                     // Or adding a new item
-                    if (!listBoxAdded.Items.Contains("M: " + txtMovieTitle.Text))
+                    if (!listBoxAdded.Items.Contains($"M {txtMovieYear.Text}: {txtMovieTitle.Text}"))
                     {
                         try
                         {
@@ -114,7 +117,7 @@ namespace MediaDB
 
                 case "Games":
                     int played = chkGamePlayed.Checked ? 1 : 0;
-                    if (!listBoxAdded.Items.Contains("G: " + txtGameTitle.Text))
+                    if (!listBoxAdded.Items.Contains("G {txtGameYear}: {txtGameTitle.Text}"))
                     {
                         try
                         {
@@ -163,6 +166,8 @@ namespace MediaDB
 
         private void BtnEntryCommit_Click(object sender, EventArgs e)
         {
+            // Commits the list of new entries to the Database
+
             var confirmed = MessageBox.Show("Are you sure you want to commit these items?",
                 "Confirm", MessageBoxButtons.YesNo);
             if (confirmed == DialogResult.Yes)
@@ -251,7 +256,8 @@ namespace MediaDB
                     {
                         case 'M':
                             tabControlInput.SelectedTab = tabMovieInput;
-                            var selectedMovie = MovieList.FirstOrDefault(m => m.Title == selectedName[3..]);
+                            // Strip Category and year off the listbox text
+                            var selectedMovie = MovieList.FirstOrDefault(m => m.Title == selectedName[8..]);
                             txtMovieTitle.Text = selectedMovie.Title;
                             txtMovieDirector.Text = selectedMovie.Director;
                             txtMovieYear.Text = selectedMovie.Year.ToString();
@@ -269,7 +275,8 @@ namespace MediaDB
                             break;
                         case 'G':
                             tabControlInput.SelectedTab = tabGameInput;
-                            var selectedGame = GameList.FirstOrDefault(g => g.Title == selectedName[3..]);
+                            // Strip Category and year off the listbox text
+                            var selectedGame = GameList.FirstOrDefault(g => g.Title == selectedName[8..]);
                             txtGameTitle.Text = selectedGame.Title;
                             txtGameDeveloper.Text = selectedGame.Developer;
                             txtGameYear.Text = selectedGame.Year.ToString();
@@ -294,6 +301,55 @@ namespace MediaDB
                 MessageBox.Show(err.Message);
             }
 
+        }
+
+        private void BtnEntryRemove_Click(object sender, EventArgs e)
+        {
+            if (listBoxAdded.SelectedItem != null)
+            {
+                try
+                {
+                    string selectedName = listBoxAdded.SelectedItem.ToString();
+                    listBoxAdded.ClearSelected();
+                    DialogResult confirmed = MessageBox.Show("Remove From Commit List?", "Confirm", MessageBoxButtons.YesNo);
+                    if (confirmed == DialogResult.Yes)
+                    {
+                        switch (selectedName[0])
+                        {
+                            case 'M':
+                                // Strip Category and year off the listbox text
+                                var selectedMovie = MovieList.FirstOrDefault(m => m.Title == selectedName[8..]);
+                                if(selectedMovie != null)
+                                {
+                                    MovieList.Remove(selectedMovie);
+                                    ClearFields(GameFields, "Game");
+                                }
+                                break;
+                            case 'G':
+                                // Strip Category and year off the listbox text
+                                var selectedGame = GameList.FirstOrDefault(g => g.Title == selectedName[8..]);
+                                if (selectedGame != null)
+                                {
+                                    GameList.Remove(selectedGame);
+                                    ClearFields(MovieFields, "Movie");
+                                }
+                                break;
+                        }
+                        listBoxAdded.Items.Clear();
+                        PopulateListBox(MovieList);
+                        PopulateListBox(GameList);
+                    }
+
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Entry Selected.");
+            }
         }
     }
 }
